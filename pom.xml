@@ -7,6 +7,11 @@
     <groupId>com.michaelwomack</groupId>
     <artifactId>audiobucket</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <appengine.maven.plugin>1.0.0</appengine.maven.plugin>
+    </properties>
+
     <build>
         <plugins>
             <plugin>
@@ -15,6 +20,20 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.4.0</version>
+                <configuration>
+                    <mainClass>com.mhw.audiobucket.app.Main</mainClass>
+                    <arguments>
+                        <argument>-jar</argument>
+                        <argument>target/spark-1.0-jar-with-dependencies.jar</argument>
+                    </arguments>
                 </configuration>
             </plugin>
         </plugins>

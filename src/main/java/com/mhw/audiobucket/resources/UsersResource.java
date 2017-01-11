@@ -45,11 +45,10 @@ public class UsersResource {
             JsonObject json = JsonSerializer.parseJson(req.body());
             String email = json.get("email").getAsString();
             String password = json.get("password").getAsString();
-
             long id = 1;
             String token = JwtUtil.createJWT(1);
             res.header("access-token", token);
-            return new Response(true, "Successfully logged in!");
+            return new Response(true, "Successful Login.");
         }, new JsonTransformer());
 
         post("/users/register", (req, res) -> {

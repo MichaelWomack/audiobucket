@@ -8,17 +8,22 @@ angular.module('app').component('loginForm', {
         data: '='
     },
     templateUrl: 'html/templates/login-form-template.html',
-    controller: loginFormController
+    controller: function (Users) {
+        this.email;
+        this.password;
+
+        this.login = () => {
+            Users.userLogin(this.email, this.password).then((response) => {
+                alert(Object.keys(response));
+                alert(JSON.stringify(response));
+                alert(JSON.stringify(response.config.headers));
+
+
+            });
+        };
+
+        this.register = () => {
+        }
+    }
 });
 
-
-function loginFormController() {
-    this.email;
-    this.password;
-
-    this.login = () => {
-    };
-
-    this.register = () => {
-    }
-}
