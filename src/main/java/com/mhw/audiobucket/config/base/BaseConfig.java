@@ -13,7 +13,7 @@ public abstract class BaseConfig extends Properties {
 
     protected void loadProperties(String resource) throws IOException {
         try (InputStream in = Util.getResourceAsStream(resource)){
-            this.load(Util.getResourceAsStream(resource));
+            this.load(in);
         }
     }
 }
