@@ -19,7 +19,7 @@ import static spark.Spark.post;
  */
 public class ArtistsController {
 
-    private static final String CONTENT_TYPE = "com/michaelwomack.audiobucket/application/json";
+    private static final String CONTENT_TYPE = "application/json";
 
     public static void run() {
 

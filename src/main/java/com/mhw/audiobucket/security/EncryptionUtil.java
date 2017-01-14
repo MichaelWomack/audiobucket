@@ -13,8 +13,4 @@ public class EncryptionUtil {
     public static String sha256(String str) throws NoSuchAlgorithmException {
         return Hashing.sha256().hashString(str, StandardCharsets.UTF_8).toString();
     }
-
-    public static void main(String[] args) throws NoSuchAlgorithmException {
-        System.out.println(sha256("hello"));
-    }
 }
