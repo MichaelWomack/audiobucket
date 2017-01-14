@@ -1,21 +1,15 @@
 package com.mhw.audiobucket.config;
 
-import com.mhw.audiobucket.util.Util;
+import com.mhw.audiobucket.config.base.BaseConfig;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
 
 /**
  * Created by michaelwomack on 1/9/17.
  */
-public class AppConfig extends Properties {
+public class AppConfig extends BaseConfig {
 
-    private final String resource = "config/app.props";
-
-    private void loadProperties() throws IOException {
-        try (InputStream in = Util.getResourceAsStream(resource)){
-            this.load(Util.getResourceAsStream(resource));
-        }
+    public AppConfig() throws IOException {
+        this.loadProperties("config/app.props");
     }
 }
