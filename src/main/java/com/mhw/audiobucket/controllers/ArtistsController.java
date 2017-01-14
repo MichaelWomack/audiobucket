@@ -1,4 +1,4 @@
-package com.mhw.audiobucket.resources;
+package com.mhw.audiobucket.controllers;
 
 import com.auth0.jwt.JWT;
 import com.google.common.base.Strings;
@@ -17,7 +17,7 @@ import static spark.Spark.post;
 /**
  * Created by mxw4182 on 12/22/16.
  */
-public class ArtistsResource {
+public class ArtistsController {
 
     private static final String CONTENT_TYPE = "com/michaelwomack.audiobucket/application/json";
 

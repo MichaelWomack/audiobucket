@@ -1,0 +1,18 @@
+<form ng-submit="$ctrl.register()">
+    <md-input-container class="md-block">
+        <label>email</label>
+        <input type="email" ng-model="$ctrl.email" required>
+    </md-input-container>
+
+    <md-input-container class="md-block">
+        <label>password</label>
+        <input type="password" ng-model="$ctrl.password" required>
+    </md-input-container>
+
+    <md-input-container class="md-block">
+        <label>confirm password</label>
+        <input type="password" ng-model="$ctrl.confirmPassword" required>
+    </md-input-container>
+
+    <md-button type="submit" class="md-raised">register</md-button>
+</form>

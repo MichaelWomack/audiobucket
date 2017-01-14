@@ -1,4 +1,4 @@
-package com.mhw.audiobucket.resources;
+package com.mhw.audiobucket.controllers;
 
 import com.google.gson.JsonObject;
 import com.mhw.audiobucket.security.JwtUtil;
@@ -12,7 +12,7 @@ import static spark.Spark.post;
 /**
  * Created by michaelwomack on 1/8/17.
  */
-public class UsersResource {
+public class UsersController {
 
 
     public static void run() {

@@ -1,0 +1,15 @@
+<md-content layout-padding>
+    <md-toolbar layout="row" layout-align="center">
+        <h2>Audio Bucket</h2>
+    </md-toolbar>
+
+    <md-button ng-click="LoginCtrl.toggleRegisterForm()" ng-show="LoginCtrl.showRegisterForm">
+        <i class="material-icons">keyboard_arrow_left</i>
+    </md-button>
+
+    <section layout="row" layout-align="center">
+        <login-form ng-hide="LoginCtrl.showRegisterForm" toggle-register-form="LoginCtrl.toggleRegisterForm()">
+        </login-form>
+        <register-form ng-show="LoginCtrl.showRegisterForm"></register-form>
+    </section>
+</md-content>
