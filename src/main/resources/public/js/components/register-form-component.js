@@ -21,6 +21,7 @@ angular.module('app').component('registerForm', {
             else {
                 this.Users.registerUser(this.email, this.password).then((response) => {
                     let result = response.config.data;
+                    alert(JSON.stringify(result));
                 });
             }
         }
