@@ -1,6 +1,7 @@
 package com.mhw.audiobucket.config;
 
 import com.mhw.audiobucket.config.base.BaseConfig;
+import com.mhw.audiobucket.exceptions.ApplicationConfigException;
 
 import java.io.IOException;
 
@@ -9,7 +10,11 @@ import java.io.IOException;
  */
 public class AppConfig extends BaseConfig {
 
-    public AppConfig() throws IOException {
-        this.loadProperties("config/app.props");
+    public AppConfig() throws ApplicationConfigException {
+        try {
+            this.loadProperties("config/app.props");
+        } catch (IOException e) {
+            throw new ApplicationConfigException("Error occurred while 'app.props'", e);
+        }
     }
 }

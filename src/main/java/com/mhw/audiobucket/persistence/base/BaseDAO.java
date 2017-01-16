@@ -1,6 +1,8 @@
 package com.mhw.audiobucket.persistence.base;
 
+import com.apple.eawt.Application;
 import com.mhw.audiobucket.config.DatabaseConfig;
+import com.mhw.audiobucket.exceptions.ApplicationConfigException;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -16,18 +18,18 @@ public abstract class BaseDAO {
 
     private Properties props;
 
-    protected abstract List<?> getAll() throws IOException, SQLException;
+    protected abstract List<?> getAll() throws ApplicationConfigException, SQLException;
 
-    protected abstract Object getById(long id) throws IOException, SQLException;
+    protected abstract Object getById(long id) throws ApplicationConfigException, SQLException;
 
-    protected Connection getConnection() throws SQLException, IOException {
+    protected Connection getConnection() throws SQLException, ApplicationConfigException {
         Connection conn = null;
         String url = getConnectionUrl();
         conn = DriverManager.getConnection(url);
         return conn;
     }
 
-    private String getConnectionUrl() throws IOException {
+    private String getConnectionUrl() throws ApplicationConfigException {
         props = new DatabaseConfig();
         return String.format("jdbc:mysql://%s:%s/%s?user=%s&password=%s",
                 props.getProperty("host"),

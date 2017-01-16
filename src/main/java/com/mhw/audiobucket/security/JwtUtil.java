@@ -18,7 +18,7 @@ public class JwtUtil {
 
 
     private static final String SECRET = "secretcode";
-    private static final String ISSUER = "michael";
+    private static final String ISSUER = "audiobucket";
     private static final int EXPIRATION_IN_MS = 60 * 60 * 1000;
     private Properties props;
 

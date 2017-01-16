@@ -1,5 +1,6 @@
 package com.mhw.audiobucket.persistence;
 
+import com.mhw.audiobucket.exceptions.ApplicationConfigException;
 import com.mhw.audiobucket.model.User;
 import com.mhw.audiobucket.persistence.base.BaseDAO;
 
@@ -17,7 +18,7 @@ public class UsersDAO extends BaseDAO {
     private static final String BY_ID = " where id = ?";
 
     @Override
-    protected List<User> getAll() throws IOException, SQLException {
+    protected List<User> getAll() throws ApplicationConfigException, SQLException {
         List<User> users = new ArrayList<>();
         try (Connection conn = getConnection()) {
             Statement statement = conn.createStatement();
@@ -32,14 +33,14 @@ public class UsersDAO extends BaseDAO {
     }
 
     @Override
-    protected User getById(long id) throws IOException, SQLException {
+    protected User getById(long id) throws ApplicationConfigException, SQLException {
         User user = null;
         try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement(GET_ALL_USERS + BY_ID);
             statement.setLong(1, id);
 
             ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 user = getUserFromResultSet(resultSet);
             }
         }
@@ -54,7 +55,7 @@ public class UsersDAO extends BaseDAO {
         return user;
     }
 
-    public static void main(String[] args) throws IOException, SQLException {
+    public static void main(String[] args) throws ApplicationConfigException, SQLException {
         UsersDAO users = new UsersDAO();
         User user = users.getById(1);
         System.out.println(user);
