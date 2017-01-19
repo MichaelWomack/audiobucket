@@ -58,10 +58,10 @@ public class UsersController {
             JsonObject body = JsonSerializer.parseJson(req.body());
             String email = body.get("email").getAsString();
             String password = body.get("password").getAsString();
-
+            System.out.println(email);
             String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
-            return new Response(true, body.getAsString());
+            return new Response(true, email + " successfully registered!");
         }, new JsonTransformer());
     }
 }
