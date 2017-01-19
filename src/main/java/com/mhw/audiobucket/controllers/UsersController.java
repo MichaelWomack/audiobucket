@@ -51,8 +51,7 @@ public class UsersController {
             String password = json.get("password").getAsString();
             /** Get user info from DB, check password matches salt and get set id in token **/
             String token = JwtUtil.createJWT(1);
-            res.header("access-token", token);
-            return new Response(true, "Successful Login.");
+            return new Response(true, "Successful Login.", token);
         }, new JsonTransformer());
 
         post("/users/register", CONTENT_TYPE, (req, res) -> {

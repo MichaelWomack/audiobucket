@@ -50,9 +50,11 @@ public class ArtistsController {
 
 
         get("/api/artists/token", CONTENT_TYPE, (req, res) -> {
-            String token = req.headers("x-access-token");
-            JWT jwt = JwtUtil.verify(token);
-            return new Response(true, jwt);
+            String authHeader = req.headers("Authorization");
+            String token = authHeader.split("Bearer ")[1];
+
+            //JWT jwt = JwtUtil.verify(token);
+            return new Response(true, token);
         }, new JsonTransformer());
 
     }

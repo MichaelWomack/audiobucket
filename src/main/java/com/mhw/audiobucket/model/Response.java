@@ -24,4 +24,9 @@ public class Response {
         this(success);
         this.message = message;
     }
+
+    public Response(boolean success, String message, String token) {
+        this(success, message);
+        this.token = token;
+    }
 }
