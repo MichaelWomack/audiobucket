@@ -87,9 +87,5 @@ public class UsersDAO extends BaseDAO {
 
     public static void main(String[] args) throws ApplicationConfigException, SQLException {
         UsersDAO users = new UsersDAO();
-
-        User user = new User("mwomack93@gmail.com", "temp123");
-        long id = users.addUser(user);
-        System.out.println(id);
     }
 }
