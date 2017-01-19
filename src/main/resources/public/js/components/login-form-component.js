@@ -11,14 +11,14 @@ angular.module('app').component('loginForm', {
     templateUrl: 'html/templates/login-form-template.html',
     controller: class {
 
-        constructor(Users) {
-            this.Users = Users;
+        constructor(Authentication) {
+            this.auth = Authentication;
             this.email;
             this.password;
         }
 
         login() {
-            this.Users.userLogin(this.email, this.password).then((response) => {
+            this.auth.login(this.email, this.password).then((response) => {
                 let message = response.data.message;
                 alert(message);
             });

@@ -3,8 +3,10 @@
  */
 
 angular.module('app', ['ui.router', 'ngMaterial'])
-    .config(($stateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) => {
+    .config(($stateProvider, $urlRouterProvider, $locationProvider,
+             $mdThemingProvider, $httpProvider) => {
 
+        $httpProvider.interceptors.push('JwtInterceptor');
         $urlRouterProvider.otherwise('/login');
 
         $stateProvider.state('login', {
@@ -12,6 +14,9 @@ angular.module('app', ['ui.router', 'ngMaterial'])
             templateUrl: 'html/views/login.html',
             controller: 'LoginController',
             controllerAs: 'LoginCtrl'
+        }).state('register', {
+            url: '/register',
+            templateUrl: 'html/views/register.html'
         });
 
         $locationProvider.html5Mode(true);

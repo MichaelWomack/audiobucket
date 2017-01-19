@@ -7,7 +7,7 @@ angular.module('app').component('registerForm', {
     controller: class {
 
         constructor(Users) {
-            this.Users = Users;
+            this.UsersService = Users;
             this.email;
             this.password;
             this.confirmPassword;
@@ -19,7 +19,7 @@ angular.module('app').component('registerForm', {
                 alert("Passwords don't match!");
             }
             else {
-                this.Users.registerUser(this.email, this.password).then((response) => {
+                this.UsersService.registerUser(this.email, this.password).then((response) => {
                     let result = response.config.data;
                     alert(JSON.stringify(result));
                 });
