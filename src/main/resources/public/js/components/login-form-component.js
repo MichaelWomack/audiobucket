@@ -9,24 +9,18 @@ angular.module('app').component('loginForm', {
        toggleRegisterForm: '&'
     },
     templateUrl: 'html/templates/login-form-template.html',
-    controller: class {
+    controller: function (Authentication, $state) {
+        this.email;
+        this.password;
 
-        constructor(Authentication) {
-            this.auth = Authentication;
-            this.email;
-            this.password;
-        }
-
-        login() {
-            this.auth.login(this.email, this.password).then((response) => {
+        this.login = () => {
+            Authentication.login(this.email, this.password).then((response) => {
                 let message = response.data.message;
-                alert(message);
+                if (response.data.success) {
+                    $state.go('register');
+                }
             });
-        }
-
-        toggleRegister() {
-            this.toggleRegisterForm();
-        }
+        };
     }
 });
 

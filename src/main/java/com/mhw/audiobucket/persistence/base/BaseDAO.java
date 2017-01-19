@@ -18,9 +18,9 @@ public abstract class BaseDAO {
 
     private Properties props;
 
-    protected abstract List<?> getAll() throws ApplicationConfigException, SQLException;
+    public abstract List<?> getAll() throws ApplicationConfigException, SQLException;
 
-    protected abstract Object getById(long id) throws ApplicationConfigException, SQLException;
+    public abstract Object getById(long id) throws ApplicationConfigException, SQLException;
 
     protected Connection getConnection() throws SQLException, ApplicationConfigException {
         Connection conn = null;

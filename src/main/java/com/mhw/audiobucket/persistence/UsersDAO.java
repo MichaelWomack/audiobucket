@@ -16,11 +16,12 @@ public class UsersDAO extends BaseDAO {
 
     private static final String GET_ALL_USERS = "select * from users";
     private static final String BY_ID = " where id = ?";
+    private static final String BY_EMAIL = " where email = ?";
     private static final String ADD_USER = "insert into Users (email, password, date_created, is_active) " +
             "values (?, ?, now(), FALSE )";
 
     @Override
-    protected List<User> getAll() throws ApplicationConfigException, SQLException {
+    public List<User> getAll() throws ApplicationConfigException, SQLException {
         List<User> users = new ArrayList<>();
         try (Connection conn = getConnection()) {
             Statement statement = conn.createStatement();
@@ -35,11 +36,25 @@ public class UsersDAO extends BaseDAO {
     }
 
     @Override
-    protected User getById(long id) throws ApplicationConfigException, SQLException {
+    public User getById(long id) throws ApplicationConfigException, SQLException {
         User user = null;
         try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement(GET_ALL_USERS + BY_ID);
             statement.setLong(1, id);
+
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                user = getUserFromResultSet(resultSet);
+            }
+        }
+        return user;
+    }
+
+    public User getUserByEmail(String email) throws SQLException, ApplicationConfigException {
+        User user = null;
+        try (Connection conn = getConnection()) {
+            PreparedStatement statement = conn.prepareStatement(GET_ALL_USERS + BY_EMAIL);
+            statement.setString(1, email);
 
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
@@ -63,6 +78,7 @@ public class UsersDAO extends BaseDAO {
     private User getUserFromResultSet(ResultSet resultSet) throws SQLException {
         User user = new User();
         user.setId(resultSet.getLong("id"));
+        user.setPassword(resultSet.getString("password"));
         user.setActive(resultSet.getBoolean("is_active"));
         user.setDateCreated(resultSet.getTimestamp("date_created"));
         user.setArtistId(resultSet.getLong("artist_id"));

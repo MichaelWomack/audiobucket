@@ -11,6 +11,8 @@ public class Response {
     private String token;
 
 
+    public Response() {}
+
     private Response(boolean success) {
         this.success = success;
     }

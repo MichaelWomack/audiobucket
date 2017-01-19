@@ -32,6 +32,7 @@ factory('Authentication', (TokenManager, $http) => {
         return $http.post('/users/login', {email: email, password: password})
             .then((response) => {
                 TokenManager.setToken(response.data.token);
+                alert(JSON.stringify(response));
                 return response;
             });
     };

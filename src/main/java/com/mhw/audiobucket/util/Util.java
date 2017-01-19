@@ -22,4 +22,9 @@ public class Util {
         InputStream in = classLoader.getResourceAsStream(resource);
         return in;
     }
+
+    public static void main(String[] args) {
+        System.out.println(org.mindrot.jbcrypt.BCrypt.checkpw("password", "$2a$10$vAD8RNWZo3yknizR24pET.Fwyd51tkHjP8i/A1ECvvwVe10802lkq"));
+    }
 }
+

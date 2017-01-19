@@ -3,6 +3,7 @@ package com.mhw.audiobucket.controllers;
 import com.auth0.jwt.JWT;
 import com.google.gson.JsonObject;
 import com.mhw.audiobucket.exceptions.ApplicationConfigException;
+import com.mhw.audiobucket.exceptions.JwtException;
 import com.mhw.audiobucket.model.User;
 import com.mhw.audiobucket.persistence.UsersDAO;
 import com.mhw.audiobucket.security.EncryptionUtil;
@@ -55,12 +56,29 @@ public class UsersController {
          * Routes below do not require auth
          */
         post("/users/login", CONTENT_TYPE, (req, res) -> {
-            JsonObject json = JsonSerializer.parseJson(req.body());
-            String email = json.get("email").getAsString();
-            String password = json.get("password").getAsString();
-            /** Get user info from DB, check password matches salt and get set id in token **/
-            String token = JwtUtil.createJWT(1);
-            return new Response(true, "Successful Login.", token);
+            try {
+                JsonObject json = JsonSerializer.parseJson(req.body());
+                String email = json.get("email").getAsString();
+                String password = json.get("password").getAsString();
+                User user = users.getUserByEmail(email);
+                boolean correctPwd = BCrypt.checkpw(password, user.getPassword());
+                if (correctPwd) {
+                    try {
+                        String token = JwtUtil.createJWT(user.getId());
+                        return new Response(true, "Successful Login.", token);
+                    } catch (JwtException e) {
+                        String message = "Failed to create token: " + e.getMessage();
+                        LOGGER.log(Level.SEVERE, message, e);
+                        return new Response(false, message);
+                    }
+                } else {
+                    return new Response(false, "Incorrect credentials.");
+                }
+            } catch (Exception e) {
+                LOGGER.log(Level.SEVERE, "Errors", e);
+                return new Response(false, e.getMessage());
+            }
+
         }, new JsonTransformer());
 
         post("/users/register", CONTENT_TYPE, (req, res) -> {
