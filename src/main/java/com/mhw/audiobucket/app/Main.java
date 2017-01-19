@@ -48,8 +48,8 @@ public class Main {
         });
 
         notFound((req, res) -> {
-            res.redirect(req.host() + req.pathInfo());
-            return req;
+            res.redirect("/");
+            return res;
         });
     }
 }

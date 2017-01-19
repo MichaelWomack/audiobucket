@@ -8,14 +8,18 @@ import java.util.Date;
 public class User {
 
     private long id;
-    private String username;
+    private String email;
     private String password;
     private Date dateCreated;
     private boolean isActive;
     private long artistId;
 
-    public User(long id) {
-        this.id = id;
+    public User() {
+
+    }
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
     }
 
     public long getId() {
@@ -26,12 +30,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

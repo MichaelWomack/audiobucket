@@ -16,6 +16,8 @@ public class UsersDAO extends BaseDAO {
 
     private static final String GET_ALL_USERS = "select * from users";
     private static final String BY_ID = " where id = ?";
+    private static final String ADD_USER = "insert into Users (email, password, date_created, is_active) " +
+            "values (?, ?, now(), FALSE )";
 
     @Override
     protected List<User> getAll() throws ApplicationConfigException, SQLException {
@@ -47,8 +49,20 @@ public class UsersDAO extends BaseDAO {
         return user;
     }
 
+    public long addUser(User user) throws SQLException, ApplicationConfigException {
+        try (Connection conn = getConnection()) {
+            PreparedStatement statement = conn.prepareStatement(ADD_USER, Statement.RETURN_GENERATED_KEYS);
+            int col = 1;
+            statement.setString(col++, user.getEmail());
+            statement.setString(col++, user.getPassword());
+            long id = statement.executeUpdate();
+            return id;
+        }
+    }
+
     private User getUserFromResultSet(ResultSet resultSet) throws SQLException {
-        User user = new User(resultSet.getLong("id"));
+        User user = new User();
+        user.setId(resultSet.getLong("id"));
         user.setActive(resultSet.getBoolean("is_active"));
         user.setDateCreated(resultSet.getTimestamp("date_created"));
         user.setArtistId(resultSet.getLong("artist_id"));
@@ -57,7 +71,9 @@ public class UsersDAO extends BaseDAO {
 
     public static void main(String[] args) throws ApplicationConfigException, SQLException {
         UsersDAO users = new UsersDAO();
-        User user = users.getById(1);
-        System.out.println(user);
+
+        User user = new User("mwomack93@gmail.com", "temp123");
+        long id = users.addUser(user);
+        System.out.println(id);
     }
 }

@@ -19,9 +19,10 @@ angular.module('app').component('registerForm', {
                 alert("Passwords don't match!");
             }
             else {
+                alert("Why this aint workin");
                 this.UsersService.registerUser(this.email, this.password).then((response) => {
-                    let result = response.config.data;
-                    alert(JSON.stringify(result));
+                    let message = response.data.message;
+                    alert(JSON.stringify(message));
                 });
             }
         }

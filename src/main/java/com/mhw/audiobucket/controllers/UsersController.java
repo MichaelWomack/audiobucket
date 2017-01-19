@@ -2,12 +2,19 @@ package com.mhw.audiobucket.controllers;
 
 import com.auth0.jwt.JWT;
 import com.google.gson.JsonObject;
+import com.mhw.audiobucket.exceptions.ApplicationConfigException;
+import com.mhw.audiobucket.model.User;
+import com.mhw.audiobucket.persistence.UsersDAO;
 import com.mhw.audiobucket.security.EncryptionUtil;
 import com.mhw.audiobucket.security.JwtUtil;
 import com.mhw.audiobucket.model.Response;
 import com.mhw.audiobucket.serialization.JsonSerializer;
 import com.mhw.audiobucket.serialization.JsonTransformer;
 import org.mindrot.jbcrypt.BCrypt;
+
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
@@ -17,7 +24,9 @@ import static spark.Spark.post;
  */
 public class UsersController {
 
+    private static final Logger LOGGER = Logger.getLogger(UsersController.class.getName());
     private static final String CONTENT_TYPE = "application/json";
+    private static UsersDAO users = new UsersDAO();
 
     public static void run() {
 
@@ -58,10 +67,17 @@ public class UsersController {
             JsonObject body = JsonSerializer.parseJson(req.body());
             String email = body.get("email").getAsString();
             String password = body.get("password").getAsString();
-            System.out.println(email);
             String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-
-            return new Response(true, email + " successfully registered!");
+            User user = new User(email, hashedPassword);
+            String message = email + " successfully registered!";
+            long id = -1;
+            try {
+                id = users.addUser(user);
+            } catch (Exception e) {
+                message = "Failed to register user " + email;
+                LOGGER.log(Level.SEVERE, message, e);
+            }
+            return new Response(true, message);
         }, new JsonTransformer());
     }
 }
