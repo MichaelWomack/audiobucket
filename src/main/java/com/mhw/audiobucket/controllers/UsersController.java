@@ -48,7 +48,13 @@ public class UsersController {
 
 
         get("/api/users/identity", CONTENT_TYPE, (req, res) -> {
-            return new Response(true, "Hello");
+            String identity = req.cookie("identity");
+            User user;
+            if (identity != null) {
+                user = users.getById(Long.parseLong(identity));
+                return new Response(true, user);
+            }
+            return new Response(false, "Unable to fetch user data.");
         }, new JsonTransformer());
 
 

@@ -5,6 +5,7 @@ import com.mhw.audiobucket.controllers.ArtistsController;
 import com.mhw.audiobucket.controllers.UsersController;
 import com.mhw.audiobucket.security.JwtUtil;
 import com.mhw.audiobucket.serialization.JsonTransformer;
+import com.mhw.audiobucket.util.Util;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,7 +32,7 @@ public class Main {
                     LOGGER.log(Level.INFO, "It was seen.");
                     String jwtStr = authHeader.split("Bearer ")[1];
                     JWT jwt = JwtUtil.verify(jwtStr);
-                    res.header("identity", jwt.getSubject());
+                    res.cookie("identity", jwt.getSubject());
                     LOGGER.log(Level.SEVERE, jwtStr);
                     LOGGER.log(Level.INFO, req.headers().toString());
                 } catch (Exception e) {
@@ -44,11 +45,12 @@ public class Main {
         ArtistsController.run();
 
         after("*", (req, res) -> {
+            res.body(Util.readResouce("public/index.html"));
             LOGGER.log(Level.INFO, req.requestMethod() + " " + req.pathInfo());
         });
 
         notFound((req, res) -> {
-            res.redirect("/");
+            res.redirect(req.host() + req.pathInfo());
             return res;
         });
     }
