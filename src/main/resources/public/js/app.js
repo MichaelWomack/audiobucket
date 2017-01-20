@@ -17,6 +17,9 @@ angular.module('app', ['ui.router', 'ngMaterial'])
         }).state('register', {
             url: '/register',
             templateUrl: 'html/views/register.html'
+        }).state('profile', {
+            url: '/profile',
+            templateUrl: 'html/views/profile.html'
         });
 
         $locationProvider.html5Mode(true);
