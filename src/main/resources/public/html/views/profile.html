@@ -1,7 +1,12 @@
-
-<md-toolbar layout-padding>
-    <h2>Profile</h2>
+<md-toolbar layout-padding layout="row">
+    <h2 class="md-display-1">Profile</h2>
+    <md-button layout-align="end center" ng-click="ProfileCtrl.logout()">logout</md-button>
 </md-toolbar>
-<md-content layout-padding>
 
+<md-content>
+    <md-nav-bar layout-padding nav-bar-aria-label="navigation links">
+        <md-nav-item md-nav-click="" name="p1">Tracks</md-nav-item>
+        <md-nav-item md-nav-click="" name="p2">Albums</md-nav-item>
+        <md-nav-item md-nav-click="" name="p3">Followers</md-nav-item>
+    </md-nav-bar>
 </md-content>

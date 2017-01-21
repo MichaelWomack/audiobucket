@@ -71,6 +71,7 @@ public class UsersController {
                 if (correctPwd) {
                     try {
                         String token = JwtUtil.createJWT(user.getId());
+                        System.out.println(token);
                         return new Response(true, "Successful Login.", token);
                     } catch (JwtException e) {
                         String message = "Failed to create token: " + e.getMessage();

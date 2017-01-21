@@ -16,7 +16,9 @@ angular.module('app').component('loginForm', {
         if (Authentication.isLoggedIn()) {
             $state.go("profile");
         }
+        
         this.login = () => {
+            //TODO add spinner.
             Authentication.login(this.email, this.password).then((response) => {
                 let message = response.data.message;
                 if (response.data.success) {
