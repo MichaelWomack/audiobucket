@@ -21,7 +21,7 @@ angular.module('app').factory('TokenManager', ($window) => {
     return manager;
 }).
 
-factory('Authentication', (TokenManager, $http) => {
+factory('Authentication', (TokenManager, $http, $state) => {
     let self = {};
 
     self.isLoggedIn = () => {
@@ -38,26 +38,30 @@ factory('Authentication', (TokenManager, $http) => {
 
     self.logout = () => {
         TokenManager.clearToken();
+        $state.go('login');
     };
     
     return self;
 }).
 
-factory('JwtInterceptor', (TokenManager, $location) => {
+factory('JwtInterceptor', (TokenManager, $location, $q) => {
     let self = {};
 
     self.request = (config) => {
-        if (TokenManager.getToken()) {
+        if (TokenManager.getToken() != null) {
             config.headers.Authorization = 'Bearer ' + TokenManager.getToken();
         }
         return config;
     };
 
-    self.requestError = (req) => {
+    self.responseError = (req) => {
         if (req.config.status === 403) {
             $location.path('/');
         }
-        return req;
+        if (req.config.status == 404) {
+            alert("Page wasnt found fool");
+        }
+        return $q.reject(req);
     };
 
     return self;

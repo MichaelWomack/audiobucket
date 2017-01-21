@@ -29,12 +29,11 @@ public class Main {
             String authHeader = req.headers("Authorization");
             if (authHeader != null) {
                 try {
-                    LOGGER.log(Level.INFO, "It was seen.");
                     String jwtStr = authHeader.split("Bearer ")[1];
                     JWT jwt = JwtUtil.verify(jwtStr);
                     res.cookie("identity", jwt.getSubject());
                     LOGGER.log(Level.SEVERE, jwtStr);
-                    LOGGER.log(Level.INFO, req.headers().toString());
+                    LOGGER.log(Level.INFO, jwtStr);
                 } catch (Exception e) {
                     halt(403, "No authentication token.");
                 }
@@ -45,7 +44,6 @@ public class Main {
         ArtistsController.run();
 
         after("*", (req, res) -> {
-            res.body(Util.readResouce("public/index.html"));
             LOGGER.log(Level.INFO, req.requestMethod() + " " + req.pathInfo());
         });
 

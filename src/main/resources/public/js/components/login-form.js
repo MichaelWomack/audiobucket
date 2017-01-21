@@ -13,12 +13,18 @@ angular.module('app').component('loginForm', {
         this.email;
         this.password;
 
+        if (Authentication.isLoggedIn()) {
+            $state.go("profile");
+        }
         this.login = () => {
             Authentication.login(this.email, this.password).then((response) => {
                 let message = response.data.message;
                 if (response.data.success) {
-                    alert(response.data.token);
                     $state.go('profile');
+                }
+                else {
+                    alert(message);
+                    alert(JSON.stringify(response));
                 }
             });
         };
