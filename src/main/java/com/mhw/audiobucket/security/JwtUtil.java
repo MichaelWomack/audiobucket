@@ -53,5 +53,8 @@ public class JwtUtil {
         }
     }
 
-
+    public static void main(String[] args) throws JwtException {
+        JWT jwt = verify("undefined");
+        System.out.println(jwt);
+    }
 }

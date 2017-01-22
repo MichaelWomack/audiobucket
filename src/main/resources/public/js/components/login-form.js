@@ -5,18 +5,21 @@
 
 
 angular.module('app').component('loginForm', {
-    bindings: {
-       toggleRegisterForm: '&'
-    },
     templateUrl: 'html/templates/login-form-template.html',
-    controller: function (Authentication, $state) {
+    controller: function (Authentication, $state, $mdToast) {
         this.email;
         this.password;
+        this.errorToast = $mdToast
+            .simple()
+            .action("Ok")
+            .highlightAction(true)
+            .position('top center')
+            .hideDelay(0);
 
         if (Authentication.isLoggedIn()) {
             $state.go("profile");
         }
-        
+
         this.login = () => {
             //TODO add spinner.
             Authentication.login(this.email, this.password).then((response) => {
@@ -25,8 +28,8 @@ angular.module('app').component('loginForm', {
                     $state.go('profile');
                 }
                 else {
-                    alert(message);
-                    alert(JSON.stringify(response));
+                    this.errorToast.textContent(message);
+                    $mdToast.show(this.errorToast);
                 }
             });
         };

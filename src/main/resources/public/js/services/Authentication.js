@@ -24,14 +24,25 @@ angular.module('app').factory('TokenManager', ($window) => {
 factory('Authentication', (TokenManager, $http, $state) => {
     let self = {};
 
+    self.getIdentity = () => {
+        return $http.get('/api/users/identity');
+    };
+
     self.isLoggedIn = () => {
-        return TokenManager.getToken() != undefined;
+        alert("Checking if logged in: Token :" + TokenManager.getToken());
+        return TokenManager.getToken() != undefined && TokenManager.getToken() != 'undefined';
     };
 
     self.login = (email, password) => {
         return $http.post('/users/login', {email: email, password: password})
             .then((response) => {
-                TokenManager.setToken(response.data.token);
+                alert(JSON.stringify(response));
+                if (response.data.token) {
+                    TokenManager.setToken(response.data.token);
+                }
+                else {
+                    alert("no token added");
+                }
                 return response;
             });
     };
@@ -48,20 +59,18 @@ factory('JwtInterceptor', (TokenManager, $location, $q) => {
     let self = {};
 
     self.request = (config) => {
-        if (TokenManager.getToken() != null) {
+        if (TokenManager.getToken() != undefined) {
             config.headers.Authorization = 'Bearer ' + TokenManager.getToken();
         }
         return config;
     };
 
-    self.responseError = (req) => {
-        if (req.config.status === 403) {
+    self.responseError = (res) => {
+        if (res.status === 401) {
+            TokenManager.clearToken();
             $location.path('/');
         }
-        if (req.config.status == 404) {
-            alert("Page wasnt found fool");
-        }
-        return $q.reject(req);
+        return $q.reject(res);
     };
 
     return self;
