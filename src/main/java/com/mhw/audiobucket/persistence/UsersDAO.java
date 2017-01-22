@@ -19,6 +19,7 @@ public class UsersDAO extends BaseDAO {
     private static final String BY_EMAIL = " where email = ?";
     private static final String ADD_USER = "insert into Users (email, password, date_created, is_active) " +
             "values (?, ?, now(), FALSE )";
+    private static final String UPDATE_USER = "update table Users set email = ?, password = ?";
 
     @Override
     public List<User> getAll() throws ApplicationConfigException, SQLException {
@@ -70,14 +71,31 @@ public class UsersDAO extends BaseDAO {
             int col = 1;
             statement.setString(col++, user.getEmail());
             statement.setString(col++, user.getPassword());
-            long id = statement.executeUpdate();
+            statement.executeUpdate();
+            ResultSet rs = statement.getGeneratedKeys();
+
+            long id = -1;
+            if (rs.next()) {
+                id = rs.getLong("id");
+            }
             return id;
+        }
+    }
+
+    public boolean updateUser(User user) throws SQLException, ApplicationConfigException {
+        try (Connection conn = getConnection()) {
+            PreparedStatement statement = conn.prepareStatement(UPDATE_USER + BY_ID);
+            int col = 1;
+            statement.setString(col++, user.getEmail());
+            statement.setString(col++, user.getPassword());
+            return statement.execute();
         }
     }
 
     private User getUserFromResultSet(ResultSet resultSet) throws SQLException {
         User user = new User();
         user.setId(resultSet.getLong("id"));
+        user.setEmail(resultSet.getString("email"));
         user.setPassword(resultSet.getString("password"));
         user.setActive(resultSet.getBoolean("is_active"));
         user.setDateCreated(resultSet.getTimestamp("date_created"));

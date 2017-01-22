@@ -1,12 +1,34 @@
 <md-toolbar layout-padding layout="row">
-    <h2 class="md-display-1">Profile</h2>
-    <md-button layout-padding layout-align="end center" ng-click="ProfileCtrl.logout()">logout</md-button>
+    <div class="md-toolbar-tools">
+        <h2 class="md-display-1">Profile</h2>
+        <md-button layout-padding layout-align="end" ng-click="ProfileCtrl.logout()">logout</md-button>
+    </div>
 </md-toolbar>
+
+<!--component-->
+<md-content>
+    <md-card>
+        <md-card-title layout-padding>
+            <md-card-title-text>
+                <span class="md-headline">Don Miguel</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-title layout="row">
+            <md-card-title-media>
+                <div class="md-media-lg card-media">
+                    <img src="assets/prof.jpg" width="200px" height="200px">
+                </div>
+            </md-card-title-media>
+        </md-card-title>
+    </md-card>
+</md-content>
+
 
 <md-content>
     <md-nav-bar layout-padding nav-bar-aria-label="navigation links">
-        <md-nav-item md-nav-click="" name="p1">Tracks</md-nav-item>
-        <md-nav-item md-nav-click="" name="p2">Albums</md-nav-item>
-        <md-nav-item md-nav-click="" name="p3">Followers</md-nav-item>
+        <md-nav-item md-nav-click="" name="tracks">Tracks</md-nav-item>
+        <md-nav-item md-nav-click="" name="albums">Albums</md-nav-item>
+        <md-nav-item md-nav-click="" name="followers">Followers</md-nav-item>
+        <md-nav-item md-nav-click="" name="edit">Edit Profile</md-nav-item>
     </md-nav-bar>
 </md-content>

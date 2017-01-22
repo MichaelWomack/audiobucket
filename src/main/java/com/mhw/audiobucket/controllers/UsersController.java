@@ -14,11 +14,13 @@ import com.mhw.audiobucket.serialization.JsonTransformer;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
+import static spark.Spark.put;
 
 /**
  * Created by michaelwomack on 1/8/17.
@@ -32,7 +34,12 @@ public class UsersController {
     public static void run() {
 
         get("/api/users", CONTENT_TYPE, (req, res) -> {
-            return new Response(true, "All users");
+            try {
+                List<User> allUsers = users.getAll();
+                return new Response(true, allUsers);
+            } catch (SQLException | ApplicationConfigException e) {
+                return new Response(false, "Error occurred while getting users: " + e);
+            }
         }, new JsonTransformer());
 
 
@@ -46,14 +53,25 @@ public class UsersController {
             return new Response(true, "Getting user with id " + id);
         }, new JsonTransformer());
 
+        put("/api/users/id/:id", CONTENT_TYPE, (req, res) -> {
+            User user = (User) JsonSerializer.toObject(req.body(), User.class);
+            boolean success = users.updateUser(user);
+            String message = success ? "Updated information successfully for " : "Failed to update information.";
+            return new Response(success, message);
+        });
 
         get("/api/users/identity", CONTENT_TYPE, (req, res) -> {
+            System.out.flush();
+            System.out.println("Here is a vlue");
             String identity = req.cookie("identity");
+            LOGGER.log(Level.INFO, identity);
             User user;
             if (identity != null) {
                 user = users.getById(Long.parseLong(identity));
+                LOGGER.log(Level.INFO, user.toString());
                 return new Response(true, user);
             }
+            LOGGER.log(Level.INFO, "What is the valu: " + identity);
             return new Response(false, "Unable to fetch user data.");
         }, new JsonTransformer());
 
@@ -108,4 +126,6 @@ public class UsersController {
             return new Response(true, message);
         }, new JsonTransformer());
     }
+
+
 }
