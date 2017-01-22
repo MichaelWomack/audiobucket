@@ -32,7 +32,7 @@ public class UsersController {
     public static void run() {
 
         get("/api/users", CONTENT_TYPE, (req, res) -> {
-            return "users all users";
+            return new Response(true, "All users");
         }, new JsonTransformer());
 
 
@@ -67,6 +67,9 @@ public class UsersController {
                 String email = json.get("email").getAsString();
                 String password = json.get("password").getAsString();
                 User user = users.getUserByEmail(email);
+                if (user == null) {
+                    return new Response(false, "Incorrect email.");
+                }
                 boolean correctPwd = BCrypt.checkpw(password, user.getPassword());
                 if (correctPwd) {
                     try {
