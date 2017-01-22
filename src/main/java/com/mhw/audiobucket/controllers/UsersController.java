@@ -56,22 +56,18 @@ public class UsersController {
         put("/api/users/id/:id", CONTENT_TYPE, (req, res) -> {
             User user = (User) JsonSerializer.toObject(req.body(), User.class);
             boolean success = users.updateUser(user);
-            String message = success ? "Updated information successfully for " : "Failed to update information.";
+            String message = success ? "Updated information successfully." : "Failed to update information.";
             return new Response(success, message);
         });
 
         get("/api/users/identity", CONTENT_TYPE, (req, res) -> {
-            System.out.flush();
-            System.out.println("Here is a vlue");
             String identity = req.cookie("identity");
-            LOGGER.log(Level.INFO, identity);
             User user;
             if (identity != null) {
                 user = users.getById(Long.parseLong(identity));
                 LOGGER.log(Level.INFO, user.toString());
                 return new Response(true, user);
             }
-            LOGGER.log(Level.INFO, "What is the valu: " + identity);
             return new Response(false, "Unable to fetch user data.");
         }, new JsonTransformer());
 
