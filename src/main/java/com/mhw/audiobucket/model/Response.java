@@ -9,6 +9,8 @@ public class Response {
     private Object data;
     private String message;
     private String token;
+    private User user;
+    private Artist artist;
 
 
     public Response() {}
@@ -30,5 +32,15 @@ public class Response {
     public Response(boolean success, String message, String token) {
         this(success, message);
         this.token = token;
+    }
+
+    public Response(boolean success, User user) {
+        this(success);
+        this.user = user;
+    }
+
+    public Response(boolean success, Artist artist) {
+        this(success);
+        this.artist = artist;
     }
 }
