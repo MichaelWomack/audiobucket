@@ -14,7 +14,7 @@ angular.module('app').component('loginForm', {
             .action("Ok")
             .highlightAction(true)
             .position('top center')
-            .hideDelay(0);
+            .hideDelay(8000);
 
         if (Authentication.isLoggedIn()) {
             $state.go("profile");

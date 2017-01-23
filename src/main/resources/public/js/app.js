@@ -21,7 +21,12 @@ angular.module('app', ['ui.router', 'ngMaterial'])
             url: '/profile',
             templateUrl: 'html/views/profile.html',
             controller:'ProfileController',
-            controllerAs: 'ProfileCtrl'
+            controllerAs: 'ProfileCtrl',
+            resolve: {
+                user: function(Authentication) {
+                    return Authentication.getIdentity();
+                }
+            }
         });
 
         $locationProvider.html5Mode(true);

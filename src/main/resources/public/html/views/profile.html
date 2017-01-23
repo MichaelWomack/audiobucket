@@ -1,34 +1,46 @@
-<md-toolbar layout-padding layout="row">
-    <div class="md-toolbar-tools">
+<md-toolbar>
+    <div class="md-toolbar-tools" layout="row">
         <h2 class="md-display-1">Profile</h2>
-        <md-button layout-padding layout-align="end" ng-click="ProfileCtrl.logout()">logout</md-button>
+        <span flex></span>
+
+        <md-button ng-click="ProfileCtrl.logout()" layout="row" layout-align="space-around center">
+            <i class="material-icons">account_circle</i>
+            <span>logout</span>
+        </md-button>
+
     </div>
 </md-toolbar>
 
 <!--component-->
-<md-content>
-    <md-card>
-        <md-card-title layout-padding>
-            <md-card-title-text>
-                <span class="md-headline">Don Miguel</span>
-            </md-card-title-text>
-        </md-card-title>
-        <md-card-title layout="row">
+<md-card>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-headline">Don Miguel</span>
+        </md-card-title-text>
+    </md-card-title>
+
+    <div layout="row" layout-align="center">
+        <md-card-title>
             <md-card-title-media>
-                <div class="md-media-lg card-media">
-                    <img src="assets/prof.jpg" width="200px" height="200px">
+                <div class="md-media-xl card-media">
+                    <img src="assets/prof.jpg">
                 </div>
             </md-card-title-media>
         </md-card-title>
-    </md-card>
-</md-content>
-
+        <md-card-content>
+            <h2 class="md-display-1">Bio</h2>
+            <div>I like to make music and do other stuff.</div>
+        </md-card-content>
+        <div flex></div>
+    </div>
+</md-card>
 
 <md-content>
-    <md-nav-bar layout-padding nav-bar-aria-label="navigation links">
+    <md-nav-bar nav-bar-aria-label="navigation links">
         <md-nav-item md-nav-click="" name="tracks">Tracks</md-nav-item>
         <md-nav-item md-nav-click="" name="albums">Albums</md-nav-item>
         <md-nav-item md-nav-click="" name="followers">Followers</md-nav-item>
         <md-nav-item md-nav-click="" name="edit">Edit Profile</md-nav-item>
     </md-nav-bar>
 </md-content>
+

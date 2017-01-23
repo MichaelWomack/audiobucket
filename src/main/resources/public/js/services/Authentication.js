@@ -29,20 +29,16 @@ factory('Authentication', (TokenManager, $http, $state) => {
     };
 
     self.isLoggedIn = () => {
-        alert("Checking if logged in: Token :" + TokenManager.getToken());
         return TokenManager.getToken() != undefined && TokenManager.getToken() != 'undefined';
     };
 
     self.login = (email, password) => {
         return $http.post('/users/login', {email: email, password: password})
             .then((response) => {
-                alert(JSON.stringify(response));
                 if (response.data.token) {
                     TokenManager.setToken(response.data.token);
                 }
-                else {
-                    alert("no token added");
-                }
+
                 return response;
             });
     };
