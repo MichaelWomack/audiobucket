@@ -25,7 +25,10 @@ public class Main {
     public static void main(String[] args) throws UnknownHostException {
 
         port(8080);
-        boolean localhost = InetAddress.getLocalHost().getHostName().contains("MacBook-Pro.local");
+        boolean localhost = InetAddress
+                .getLocalHost()
+                .getHostName()
+                .contains("MacBook-Pro.local");
         if (localhost) {
             staticFiles.externalLocation(STATIC_RESOURCES);
         } else {
