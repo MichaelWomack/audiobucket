@@ -1,24 +1,7 @@
-<md-toolbar>
-    <div class="md-toolbar-tools" layout="row">
-        <h2 class="md-display-1">Profile</h2>
-        <span flex></span>
-
-        <md-button ng-click="ProfileCtrl.logout()" layout="row" layout-align="space-around center">
-            <i class="material-icons">account_circle</i>
-            <span>logout</span>
-        </md-button>
-
-    </div>
-</md-toolbar>
+<user-toolbar></user-toolbar>
 
 <!--component-->
 <md-card>
-    <md-card-title>
-        <md-card-title-text>
-            <span class="md-headline">Don Miguel</span>
-        </md-card-title-text>
-    </md-card-title>
-
     <div layout="row" layout-align="center">
         <md-card-title>
             <md-card-title-media>
@@ -40,7 +23,6 @@
         <md-nav-item md-nav-click="" name="tracks">Tracks</md-nav-item>
         <md-nav-item md-nav-click="" name="albums">Albums</md-nav-item>
         <md-nav-item md-nav-click="" name="followers">Followers</md-nav-item>
-        <md-nav-item md-nav-click="" name="edit">Edit Profile</md-nav-item>
     </md-nav-bar>
 </md-content>
 

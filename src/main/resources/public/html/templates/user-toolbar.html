@@ -1,0 +1,27 @@
+<!--Inject auth service, username-->
+<md-toolbar>
+    <div layout="row" layout-padding layout-align="space-between center">
+        <div class="md-display-1">Don Miguel</div>
+
+        <md-fab-toolbar md-direction="left" md-open="false">
+            <md-fab-trigger>
+                <md-button aria-label="menu" class="md-fab md-primary">
+                    <md-icon md-font-icon="menu">menu</md-icon>
+                </md-button>
+            </md-fab-trigger>
+
+            <md-toolbar>
+                <md-fab-actions class="md-toolbar-tools">
+                    <md-button aria-label="all_out" ng-click="$ctrl.logout()">
+                        <md-icon md-font-icon="icon-all-out">all_out</md-icon>
+                        <span>logout</span>
+                    </md-button>
+                    <md-button aria-label="settings">
+                        <md-icon md-font-icon="icon-settings">settings</md-icon>
+                        <span>account settings</span>
+                    </md-button>
+                </md-fab-actions>
+            </md-toolbar>
+        </md-fab-toolbar>
+    </div>
+</md-toolbar>

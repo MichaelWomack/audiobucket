@@ -25,6 +25,7 @@ angular.module('app').component('loginForm', {
             Authentication.login(this.email, this.password).then((response) => {
                 let message = response.data.message;
                 if (response.data.success) {
+                    $mdToast.hide();
                     $state.go('profile');
                 }
                 else {
