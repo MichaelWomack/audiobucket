@@ -1,0 +1,31 @@
+<md-dialog aria-label="Account Settings">
+    <md-toolbar class="md-toolbar-tools">
+        <h2>Account Settings</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="$ctrl.close()">
+            <md-icon class="icon-clear">clear</md-icon>
+        </md-button>
+    </md-toolbar>
+
+    <md-dialog-content class="md-dialog-content">
+        <form layout-padding layout="column" layout-align="space-around center">
+            <div layout-padding layout="row" layout-align="space-around center">
+                <md-input-container>
+                    <label>new password</label>
+                    <input type="password">
+                </md-input-container>
+                <md-input-container>
+                    <label>confirm new password</label>
+                    <input type="password">
+                </md-input-container>
+                <md-button>change password</md-button>
+            </div>
+
+            <div layout="row" layout="row" layout-align="space-between center">
+                <md-switch>Tracks Downloadable</md-switch>
+                <md-switch>Email Notifications</md-switch>
+            </div>
+            <md-button ng-click="$ctrl.save()">save</md-button>
+        </form>
+    </md-dialog-content>
+</md-dialog>
