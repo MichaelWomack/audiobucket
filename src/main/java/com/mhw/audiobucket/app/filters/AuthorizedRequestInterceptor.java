@@ -1,6 +1,7 @@
 package com.mhw.audiobucket.app.filters;
 
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.exceptions.InvalidClaimException;
 import com.mhw.audiobucket.security.JwtUtil;
 import spark.Filter;
 import spark.Request;
@@ -27,9 +28,9 @@ public class AuthorizedRequestInterceptor implements Filter {
                 JWT jwt = JwtUtil.verify(jwtStr);
                 response.cookie("identity", jwt.getSubject());
                 LOGGER.log(Level.INFO, jwtStr);
-            } catch (Exception e) {
-                LOGGER.log(Level.SEVERE, "Error decoding token from Authorization header: " + authHeader, e);
-                halt(401, "No authentication token.");
+            } catch (InvalidClaimException e) {
+                LOGGER.log(Level.SEVERE, "Error verifying token from Authorization header: " + authHeader, e);
+                halt(401, e.getMessage());
             }
         } else {
             String message = "No Authorization header to check.";
