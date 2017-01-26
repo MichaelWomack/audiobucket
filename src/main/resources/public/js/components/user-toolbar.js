@@ -31,7 +31,23 @@ angular.module('app').component('userToolbar', {
         };
         
         this.openEditProfile = () => {
+            let editProfileDialog = {
+                controller: function() {
+                    this.close = () => {
+                        $mdDialog.hide();
+                    }
+
+                    this.save = () => {
+                        alert('saved');
+                    }
+                },
+                controllerAs: '$ctrl',
+                templateUrl: 'html/templates/edit-profile-dialog.html',
+                parent: angular.element(document.body),
+                clickOutsideToClose: true
+            };
             
+            $mdDialog.show(editProfileDialog);
         }
     }
 

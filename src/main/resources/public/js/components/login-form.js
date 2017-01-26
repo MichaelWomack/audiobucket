@@ -13,7 +13,7 @@ angular.module('app').component('loginForm', {
             .simple()
             .action("Ok")
             .highlightAction(true)
-            .position('top center')
+            .position('top right')
             .hideDelay(8000);
 
         if (Authentication.isLoggedIn()) {
