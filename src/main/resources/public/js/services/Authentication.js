@@ -51,7 +51,7 @@ factory('Authentication', (TokenManager, $http, $state) => {
     return self;
 }).
 
-factory('JwtInterceptor', (TokenManager, $location, $q) => {
+factory('JwtInterceptor', (TokenManager, $location) => {
     let self = {};
 
     self.request = (config) => {
@@ -66,7 +66,7 @@ factory('JwtInterceptor', (TokenManager, $location, $q) => {
             TokenManager.clearToken();
             $location.path('/');
         }
-        return $q.reject(res);
+        return res;
     };
 
     return self;
