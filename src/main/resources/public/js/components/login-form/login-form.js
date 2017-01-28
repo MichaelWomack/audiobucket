@@ -5,7 +5,7 @@
 
 
 angular.module('app').component('loginForm', {
-    templateUrl: 'js/components/login-form.html',
+    templateUrl: 'js/components/login-form/login-form.html',
     controller: function (Authentication, $state, $mdToast) {
         this.email;
         this.password;

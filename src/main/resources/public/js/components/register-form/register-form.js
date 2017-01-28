@@ -3,7 +3,7 @@
  */
 
 angular.module('app').component('registerForm', {
-    templateUrl: 'js/components/register-form.html',
+    templateUrl: 'js/components/register-form/register-form.html',
     controller: class {
 
         constructor(Users) {

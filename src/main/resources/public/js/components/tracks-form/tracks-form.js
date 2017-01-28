@@ -3,7 +3,7 @@
  */
 
 angular.module('app').component('tracksForm', {
-    templateUrl: 'js/components/tracks-form.html',
+    templateUrl: 'js/components/tracks-form/tracks-form.html',
     controller: function () {
         this.hey = () => {
             alert("what up.");
