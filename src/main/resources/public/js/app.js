@@ -16,14 +16,14 @@ angular.module('app', ['ui.router', 'ngMaterial'])
             controllerAs: 'LoginCtrl'
         }).state('register', {
             url: '/register',
-            templateUrl: 'html/views/register.html'
+            template: '<register></register>'
         }).state('profile', {
             url: '/profile',
             templateUrl: 'html/views/profile.html',
-            controller:'ProfileController',
+            controller: 'ProfileController',
             controllerAs: 'ProfileCtrl',
             resolve: {
-                user: function(Authentication) {
+                user: function (Authentication) {
                     return Authentication.getIdentity();
                 }
             }

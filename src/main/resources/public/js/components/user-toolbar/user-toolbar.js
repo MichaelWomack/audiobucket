@@ -4,7 +4,7 @@
 
 angular.module('app').component('userToolbar', {
 
-    templateUrl: 'html/templates/user-toolbar.html',
+    templateUrl: 'js/components/user-toolbar/user-toolbar.html',
     controller: function (Authentication, $mdDialog) {
         this.logout = () => {
             Authentication.logout();

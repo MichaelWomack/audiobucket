@@ -3,7 +3,7 @@
  */
 
 angular.module('app').component('registerForm', {
-    templateUrl: 'html/templates/register-form-template.html',
+    templateUrl: 'js/components/register-form.html',
     controller: class {
 
         constructor(Users) {
@@ -19,7 +19,6 @@ angular.module('app').component('registerForm', {
                 alert("Passwords don't match!");
             }
             else {
-                alert("Why this aint workin");
                 this.UsersService.registerUser(this.email, this.password).then((response) => {
                     let message = response.data.message;
                     alert(JSON.stringify(message));
