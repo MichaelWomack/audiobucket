@@ -9,6 +9,7 @@ angular.module('app').component('loginForm', {
     controller: function (Authentication, $state, $mdToast) {
         this.email;
         this.password;
+        this.spinnerActive = false;
         this.errorToast = $mdToast
             .simple()
             .action("Ok")
@@ -21,7 +22,7 @@ angular.module('app').component('loginForm', {
         }
 
         this.login = () => {
-            //TODO add spinner.
+            this.spinnerActive = true;
             Authentication.login(this.email, this.password).then((response) => {
                 let message = response.data.message;
                 if (response.data.success) {
@@ -32,6 +33,7 @@ angular.module('app').component('loginForm', {
                     this.errorToast.textContent(message);
                     $mdToast.show(this.errorToast);
                 }
+                this.spinnerActive = false;
             });
         };
     }

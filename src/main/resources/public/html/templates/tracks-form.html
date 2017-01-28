@@ -1,0 +1,39 @@
+<div layout-padding layout="column" layout-align="space-around center">
+    <h2 class="md-headline">Add New Track</h2>
+    <form>
+        <div layout="column" layout="space-between center">
+            <md-input-container>
+                <label>track name</label>
+                <input type="text" size="35">
+            </md-input-container>
+
+            <md-input-container>
+                <label>description</label>
+                <textarea cols="34" rows="2"></textarea>
+            </md-input-container>
+
+            <md-input-container>
+                <label>album</label>
+                <md-select ng-model="$ctrl.value" size="35">
+                    <md-option value="1">value1 has some text</md-option>
+                    <md-option value="2">value 2</md-option>
+                </md-select>
+            </md-input-container>
+
+            <div class="row" layout-align="space-between center">
+                <md-button>
+                    <label for="track-upload">
+                        <md-icon class="icon_file_upload">file_upload</md-icon>
+                        <span>upload</span>
+                    </label>
+                </md-button>
+                <input type="file" id="track-upload" style="display: none;">
+
+                <md-button>
+                    <md-icon class="icon_add">add</md-icon>
+                    <span>add</span>
+                </md-button>
+            </div>
+        </div>
+    </form>
+</div>

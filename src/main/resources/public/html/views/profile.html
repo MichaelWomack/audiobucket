@@ -6,23 +6,49 @@
         <md-card-title>
             <md-card-title-media>
                 <div class="md-media-xl card-media">
-                    <img src="assets/prof.jpg">
+                    <img src="assets/sacredGeometry.jpeg">
                 </div>
             </md-card-title-media>
+            <md-card-title-text>
+                <div layout="row" layout-align="space-around">
+                    <div layout="column" flex="55">
+                        <div class="md-headline">Bio</div>
+                        <div>"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
+                            velit..."
+                            "There is no one who loves pain itself, who seeks after it and wants to have it, simply
+                            because it is pain..."
+                        </div>
+                    </div>
+
+                    <div layout="column" flex="30">
+                        <div class="md-headline">Genre</div>
+                        <div class="md-subhead">Rock/Alternative/Ambient/Experimental/Jazz</div>
+                    </div>
+                </div>
+            </md-card-title-text>
         </md-card-title>
-        <md-card-content>
-            <h2 class="md-display-1">Bio</h2>
-            <div>I like to make music and do other stuff.</div>
-        </md-card-content>
-        <div flex></div>
     </div>
 </md-card>
 
 <md-content>
-    <md-nav-bar nav-bar-aria-label="navigation links">
-        <md-nav-item md-nav-click="" name="tracks">Tracks</md-nav-item>
-        <md-nav-item md-nav-click="" name="albums">Albums</md-nav-item>
-        <md-nav-item md-nav-click="" name="followers">Followers</md-nav-item>
-    </md-nav-bar>
+    <md-tabs md-dynamic-height md-border-bottom>
+        <md-tab label="tracks">
+            <tracks-form></tracks-form>
+        </md-tab>
+        <md-tab label="albums">
+            <albums></albums>
+        </md-tab>
+        <md-tab label="following">
+            <followers></followers>
+        </md-tab>
+    </md-tabs>
 </md-content>
+
+<!--<md-content>-->
+    <!--<tracks></tracks>-->
+<!--</md-content>-->
+
+
+
+
 
