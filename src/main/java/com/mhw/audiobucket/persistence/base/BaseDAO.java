@@ -1,10 +1,8 @@
 package com.mhw.audiobucket.persistence.base;
 
-import com.apple.eawt.Application;
 import com.mhw.audiobucket.config.DatabaseConfig;
-import com.mhw.audiobucket.exceptions.ApplicationConfigException;
+import com.mhw.audiobucket.config.exception.ApplicationConfigException;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

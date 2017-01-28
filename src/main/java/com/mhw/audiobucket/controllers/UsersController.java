@@ -1,16 +1,14 @@
 package com.mhw.audiobucket.controllers;
 
-import com.auth0.jwt.JWT;
 import com.google.gson.JsonObject;
-import com.mhw.audiobucket.exceptions.ApplicationConfigException;
-import com.mhw.audiobucket.exceptions.JwtException;
+import com.mhw.audiobucket.config.exception.ApplicationConfigException;
+import com.mhw.audiobucket.security.exception.JwtException;
 import com.mhw.audiobucket.model.User;
 import com.mhw.audiobucket.persistence.UsersDAO;
-import com.mhw.audiobucket.security.EncryptionUtil;
 import com.mhw.audiobucket.security.JwtUtil;
 import com.mhw.audiobucket.model.Response;
 import com.mhw.audiobucket.serialization.JsonSerializer;
-import com.mhw.audiobucket.serialization.JsonTransformer;
+import com.mhw.audiobucket.app.transformer.JsonTransformer;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.SQLException;

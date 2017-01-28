@@ -1,7 +1,7 @@
 package com.mhw.audiobucket.config;
 
 import com.mhw.audiobucket.config.base.BaseConfig;
-import com.mhw.audiobucket.exceptions.ApplicationConfigException;
+import com.mhw.audiobucket.config.exception.ApplicationConfigException;
 
 import java.io.IOException;
 

@@ -1,10 +1,9 @@
 package com.mhw.audiobucket.persistence;
 
-import com.mhw.audiobucket.exceptions.ApplicationConfigException;
+import com.mhw.audiobucket.config.exception.ApplicationConfigException;
 import com.mhw.audiobucket.model.User;
 import com.mhw.audiobucket.persistence.base.BaseDAO;
 
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

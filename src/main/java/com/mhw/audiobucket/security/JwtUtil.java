@@ -4,8 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.mhw.audiobucket.exceptions.JwtException;
-import com.mhw.audiobucket.config.AppConfig;
+import com.mhw.audiobucket.security.exception.JwtException;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package com.mhw.audiobucket.serialization;
+package com.mhw.audiobucket.app.transformer;
 
 import com.google.gson.Gson;
 import spark.ResponseTransformer;

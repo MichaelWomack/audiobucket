@@ -1,12 +1,10 @@
 package com.mhw.audiobucket.controllers;
 
-import com.auth0.jwt.JWT;
 import com.google.common.base.Strings;
-import com.mhw.audiobucket.security.JwtUtil;
 import com.mhw.audiobucket.model.Artist;
 import com.mhw.audiobucket.model.Response;
 import com.mhw.audiobucket.serialization.JsonSerializer;
-import com.mhw.audiobucket.serialization.JsonTransformer;
+import com.mhw.audiobucket.app.transformer.JsonTransformer;
 
 import java.util.ArrayList;
 import java.util.Arrays;

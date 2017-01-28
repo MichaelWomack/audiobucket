@@ -1,4 +1,4 @@
-package com.mhw.audiobucket.exceptions;
+package com.mhw.audiobucket.security.exception;
 
 /**
  * Created by mxw4182 on 12/26/16.
