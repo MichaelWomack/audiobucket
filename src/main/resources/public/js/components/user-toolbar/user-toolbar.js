@@ -35,11 +35,11 @@ angular.module('app').component('userToolbar', {
                 controller: function() {
                     this.close = () => {
                         $mdDialog.hide();
-                    }
+                    };
 
                     this.save = () => {
                         alert('saved');
-                    }
+                    };
                 },
                 controllerAs: '$ctrl',
                 templateUrl: 'html/templates/edit-profile-dialog.html',

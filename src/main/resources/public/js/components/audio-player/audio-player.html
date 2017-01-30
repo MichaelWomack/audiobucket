@@ -1,0 +1,20 @@
+<md-toolbar layout-align="space-around center">
+    <div layout="row">
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" ng-click="$ctrl.replayTenSeconds()">
+                <md-tooltip md-direction="left">replay 10</md-tooltip>
+                <md-icon class="icon_replay_10">replay_10</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-hide="$ctrl.isPlaying" ng-click="$ctrl.play()">
+                <md-icon class="icon_play_arrow">play_arrow</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-show="$ctrl.isPlaying" ng-click="$ctrl.pause()">
+                <md-icon class="icon_pause">pause</md-icon>
+            </md-button>
+            <md-button class="md-icon-button" ng-click="$ctrl.forwardTenSeconds()">
+                <md-tooltip md-direction="right">forward 10</md-tooltip>
+                <md-icon class="icon_forward_10">forward_10</md-icon>
+            </md-button>
+        </div>
+    </div>
+</md-toolbar>
