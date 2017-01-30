@@ -4,7 +4,6 @@ import com.mhw.audiobucket.app.filters.AuthorizedRequestInterceptor;
 import com.mhw.audiobucket.controllers.ArtistsController;
 import com.mhw.audiobucket.controllers.UsersController;
 import com.mhw.audiobucket.util.Util;
-import spark.Spark;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -49,6 +48,5 @@ public class Main {
         get("*", CONTENT_TYPE, (req, res) -> {
             return Util.readResouce("public/index.html");
         });
-
     }
 }
