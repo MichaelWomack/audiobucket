@@ -6,14 +6,14 @@ angular.module('app').component('audioPlayer', {
         track: '<'
     },
     templateUrl: 'js/components/audio-player/audio-player.html',
-    controller: function ($document) {
+    controller: function ($scope) {
 
-        this.$onInit = () => {
+        //this.$onInit = () => {
             this.isPlaying = false;
             this.audio = new Audio();
             this.audio.src = this.track.url;
             this.audio.type = this.track.type;
-        };
+        //};
 
         this.play = () => {
             this.isPlaying = true;
@@ -32,5 +32,14 @@ angular.module('app').component('audioPlayer', {
         this.replayTenSeconds = () => {
             this.audio.currentTime -= 10;
         };
+        
+        this.forwardThirtySeconds = () => {
+            this.audio.currentTime += 30;
+        };
+        
+        this.replayThirtySeconds = () => {
+            this.audio.currentTime -= 30;
+        };
+        
     }
 });
