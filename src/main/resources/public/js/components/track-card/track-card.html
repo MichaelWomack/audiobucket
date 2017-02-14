@@ -11,12 +11,21 @@
         </md-card-title-media>
         <md-card-actions layout="row" layout-align="end center">
             <md-button class="md-icon-button">
-                <md-icon class="icon-play-circle-outline" ng-hide="$ctrl.isPlaying" ng-click="$ctrl.togglePlay()">play_circle_outline</md-icon>
-                <md-icon class="icon-play-circle-filled" ng-show="$ctrl.isPlaying" ng-click="$ctrl.togglePlay()">play_circle_filled</md-icon>
+                <md-icon class="icon-play-circle-outline" ng-hide="$ctrl.isPlaying" ng-click="$ctrl.togglePlay()">
+                    play_circle_outline
+                </md-icon>
+                <md-icon class="icon-play-circle-filled" ng-show="$ctrl.isPlaying" ng-click="$ctrl.togglePlay()">
+                    play_circle_filled
+                </md-icon>
             </md-button>
             <md-button class="md-icon-button">
-                <md-icon class="icon-favorite" ng-show="$ctrl.isFavorite" ng-click="$ctrl.toggleFavorite()">favorite</md-icon>
-                <md-icon class="icon-favorite-border" ng-hide="$ctrl.isFavorite" ng-click="$ctrl.toggleFavorite()">favorite_border</md-icon>
+                <md-tooltip md-direction="right">favorite</md-tooltip>
+                <md-icon class="icon-favorite" ng-show="$ctrl.isFavorite" ng-click="$ctrl.toggleFavorite()">
+                    favorite
+                </md-icon>
+                <md-icon class="icon-favorite-border" ng-hide="$ctrl.isFavorite" ng-click="$ctrl.toggleFavorite()">
+                    favorite_border
+                </md-icon>
             </md-button>
         </md-card-actions>
     </md-card-title>

@@ -31,5 +31,5 @@ angular.module('app', ['ui.router', 'ngMaterial'])
 
         $locationProvider.html5Mode(true);
 
-        $mdThemingProvider.theme("default").dark();
+        //$mdThemingProvider.theme("default").dark();
     });
