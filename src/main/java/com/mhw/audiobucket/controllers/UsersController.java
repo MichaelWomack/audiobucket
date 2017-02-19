@@ -53,7 +53,7 @@ public class UsersController {
 
         put("/api/users/id/:id", CONTENT_TYPE, (req, res) -> {
             User user = (User) JsonSerializer.toObject(req.body(), User.class);
-            boolean success = users.updateUser(user);
+            boolean success = users.update(user);
             String message = success ? "Updated information successfully." : "Failed to update information.";
             return new Response(success, message);
         });
@@ -112,7 +112,7 @@ public class UsersController {
             String message = email + " successfully registered!";
             long id = -1;
             try {
-                id = users.addUser(user);
+                id = users.insert(user);
             } catch (Exception e) {
                 message = "Failed to register user " + email;
                 LOGGER.log(Level.SEVERE, message, e);
