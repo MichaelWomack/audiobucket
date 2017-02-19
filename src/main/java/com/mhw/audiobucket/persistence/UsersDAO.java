@@ -5,8 +5,8 @@ import com.mhw.audiobucket.model.User;
 import com.mhw.audiobucket.persistence.base.BaseDAO;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.Date;
 
 /**
  * Created by michaelwomack on 1/14/17.
@@ -64,7 +64,7 @@ public class UsersDAO extends BaseDAO {
         return user;
     }
 
-    public long addUser(User user) throws SQLException, ApplicationConfigException {
+    public long insert(User user) throws SQLException, ApplicationConfigException {
         try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement(ADD_USER, Statement.RETURN_GENERATED_KEYS);
             int col = 1;
@@ -81,13 +81,14 @@ public class UsersDAO extends BaseDAO {
         }
     }
 
-    public boolean updateUser(User user) throws SQLException, ApplicationConfigException {
+    public boolean update(User user) throws SQLException, ApplicationConfigException {
         try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement(UPDATE_USER + BY_ID);
             int col = 1;
             statement.setString(col++, user.getEmail());
             statement.setString(col++, user.getPassword());
-            return statement.execute();
+            statement.setLong(col++, user.getId());
+            return statement.executeUpdate() == 1;
         }
     }
 
@@ -104,5 +105,12 @@ public class UsersDAO extends BaseDAO {
 
     public static void main(String[] args) throws ApplicationConfigException, SQLException {
         UsersDAO users = new UsersDAO();
+        User user = new User();
+        user.setArtistId(1);
+        user.setDateCreated(new Date());
+        user.setActive(false);
+        user.setPassword("temporaryPwd");
+        user.setEmail("mike@gmail.com");
+
     }
 }
