@@ -9,6 +9,8 @@ public class Artist {
     private String name;
     private String bio;
 
+    public Artist() {}
+
     public Artist(String name, String bio) {
         this.name = name;
         this.bio = bio;
@@ -19,15 +21,27 @@ public class Artist {
         this.id = id;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getBio() {
         return bio;
     }
 
-    public long getId() {
-        return id;
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 }
