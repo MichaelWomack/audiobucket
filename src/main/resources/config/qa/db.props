@@ -1,0 +1,5 @@
+host=localhost
+port=3306
+database=audiobucket
+user=ab_user
+password=temp123
