@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,6 +19,7 @@ public class TracksDAO extends BaseDAO {
 
     private static final String GET_ALL = "select * from Tracks";
     private static final String BY_ID = " where id = ?";
+    private static final String BY_ARTIST_ID = " where artist_id = ?";
     private static final String INSERT = "insert into Tracks (name, description, album_id, artist_id, type, url) " +
             "values(?,?,?,?,?,?)";
     private static final String UPDATE = "update Tracks set name=?, description=?, album_id=?, artist_id=?, type=?, url=?";
@@ -28,13 +30,27 @@ public class TracksDAO extends BaseDAO {
     }
 
     @Override
-    protected Track getById(long id) throws ApplicationConfigException, SQLException {
+    public Track getById(long id) throws ApplicationConfigException, SQLException {
         try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement(GET_ALL + BY_ID);
             statement.setLong(1, id);
             ResultSet rs = statement.executeQuery();
             Track track = getTrackFromResultSet(rs);
             return track;
+        }
+    }
+
+    public List<Track> getTracksByArtistId(long artistId) throws SQLException, ApplicationConfigException {
+        try (Connection conn = getConnection()) {
+            PreparedStatement statement = conn.prepareStatement(GET_ALL + BY_ARTIST_ID);
+            statement.setLong(1, artistId);
+            ResultSet rs = statement.executeQuery();
+            List<Track> tracks = new ArrayList<>();
+
+            while (rs.next()) {
+                tracks.add(getTrackFromResultSet(rs));
+            }
+            return tracks;
         }
     }
 
