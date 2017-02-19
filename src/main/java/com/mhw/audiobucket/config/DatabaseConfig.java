@@ -12,7 +12,7 @@ public class DatabaseConfig extends BaseConfig {
 
     public DatabaseConfig() throws ApplicationConfigException {
         try {
-            this.loadProperties("config/db.props");
+            this.loadProperties(this.getPropertiesPath() + "db.props");
         } catch (IOException e) {
             throw new ApplicationConfigException("Error occurred while loading 'db.props'", e);
         }

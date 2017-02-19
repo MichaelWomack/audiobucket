@@ -12,7 +12,8 @@ public class AppConfig extends BaseConfig {
 
     public AppConfig() throws ApplicationConfigException {
         try {
-            this.loadProperties("config/app.props");
+
+            this.loadProperties(this.getPropertiesPath() + "app.props");
         } catch (IOException e) {
             throw new ApplicationConfigException("Error occurred while loading 'app.props'", e);
         }
