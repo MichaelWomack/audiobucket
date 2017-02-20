@@ -28,11 +28,19 @@ public class ArtistsDAO extends BaseDAO {
             PreparedStatement statement = conn.prepareStatement(GET_ALL + BY_ID);
             statement.setLong(1, id);
             ResultSet rs = statement.executeQuery();
-            Artist artist = getArtistFromResultSet(rs);
+            Artist artist = null;
+            if (rs.next()) {
+                artist = getArtistFromResultSet(rs);
+            }
             return artist;
         }
     }
 
+    //    public Artist getByUserId(long id) throws SQLException, ApplicationConfigException {
+//        try (Connection conn = getConnection()) {
+//            PreparedStatement statement = conn.prepareStatement(GET_ALL + BY_USER_ID);
+//        }
+//    }
     public long insert(Artist artist) throws SQLException, ApplicationConfigException {
         try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
@@ -44,14 +52,14 @@ public class ArtistsDAO extends BaseDAO {
 
             long id = -1;
             while (rs.next()) {
-                id =rs.getLong(1);
+                id = rs.getLong(1);
             }
             return id;
         }
     }
 
     public boolean update(Artist artist) throws SQLException, ApplicationConfigException {
-        try(Connection conn = getConnection()) {
+        try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement(UPDATE + BY_ID);
             int col = 1;
             statement.setString(col++, artist.getName());
@@ -67,5 +75,10 @@ public class ArtistsDAO extends BaseDAO {
         artist.setBio(rs.getString("bio"));
         artist.setName(rs.getString("name"));
         return artist;
+    }
+
+    public static void main(String[] args) throws SQLException, ApplicationConfigException {
+        ArtistsDAO dao = new ArtistsDAO();
+        System.out.println(dao.getById(1));
     }
 }

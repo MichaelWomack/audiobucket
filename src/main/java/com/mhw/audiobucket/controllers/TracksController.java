@@ -20,13 +20,13 @@ public class TracksController {
 
     private static final String CONTENT_TYPE = "application/json";
     private static final Logger LOGGER = Logger.getLogger(TracksController.class.getName());
-    private final TracksDAO tracks = new TracksDAO();
+    private static final TracksDAO tracks = new TracksDAO();
 
-    public void run() {
+    public static void run() {
 
-        get("/tracks/artist_id/:artist_id", CONTENT_TYPE, (req, res) -> {
+        get("/api/tracks/artist_id/:artist_id", CONTENT_TYPE, (req, res) -> {
             List<Track> tracksList;
-            String artistIdStr = req.params("artist_id");
+            String artistIdStr = req.params(":artist_id");
             try {
                 long artistId = Long.parseLong(artistIdStr);
                 tracksList = tracks.getTracksByArtistId(artistId);
@@ -38,7 +38,7 @@ public class TracksController {
             }
         }, new JsonTransformer());
 
-        get("/tracks/id/:id", CONTENT_TYPE, (req, res) -> {
+        get("/api/tracks/id/:id", CONTENT_TYPE, (req, res) -> {
             String trackIdStr = req.params("id");
             try {
                 long trackId = Long.parseLong(trackIdStr);

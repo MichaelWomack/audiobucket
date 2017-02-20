@@ -35,7 +35,10 @@ public class TracksDAO extends BaseDAO {
             PreparedStatement statement = conn.prepareStatement(GET_ALL + BY_ID);
             statement.setLong(1, id);
             ResultSet rs = statement.executeQuery();
-            Track track = getTrackFromResultSet(rs);
+            Track track = null;
+            if (rs.next()){
+                track = getTrackFromResultSet(rs);
+            }
             return track;
         }
     }
@@ -104,15 +107,16 @@ public class TracksDAO extends BaseDAO {
 
     public static void main(String[] args) throws SQLException, ApplicationConfigException {
         TracksDAO dao = new TracksDAO();
-        Track track = new Track();
-        track.setUrl("gs://fake-url");
-        track.setType("audio/mp3");
-        track.setArtistId(1);
-        track.setAlbumId(1);
-        track.setName("The Track");
-        track.setDescription("Here's a track example");
-        track.setId(dao.insert(track));
-        track.setDescription("You'll know when there's a new description");
-        System.out.println(dao.update(track));
+//        Track track = new Track();
+//        track.setUrl("gs://fake-url");
+//        track.setType("audio/mp3");
+//        track.setArtistId(1);
+//        track.setAlbumId(1);
+//        track.setName("The Track");
+//        track.setDescription("Here's a track example");
+//        track.setId(dao.insert(track));
+//        track.setDescription("You'll know when there's a new description");
+//        System.out.println(dao.update(track));
+        System.out.println(dao.getById(1));
     }
 }
