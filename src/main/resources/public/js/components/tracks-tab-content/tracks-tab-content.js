@@ -3,19 +3,20 @@
  */
 
 angular.module('app').component('tracksTabContent', {
+    bindings: {
+        artist: '<'
+    },
     templateUrl: 'js/components/tracks-tab-content/tracks-tab-content.html',
-    controller: function () {
-
-        //Request tracks content from db
+    controller: function (Tracks) {
+        
+        /* Using ng-if on tracks-tab-content element to wait for 'artist' binding to resolve */
+        Tracks.getTracksByArtistId(this.artist.id).then((response) => {
+            let res = response.data;
+            this.tracks = res.data;
+            this.albums = [{name: 'Album of the Year', id: 1}];
+        });
 
         this.showTrackForm = false;
-        this.tracks = [{
-            'url': 'assets/bolero.mp3',
-            'type': 'audio/mp3',
-            'name': 'Bolero',
-            'album': 'El Miguel',
-            'artist': 'Don Miguel'
-        }];
 
         this.toggleTrackForm = () => {
             this.showTrackForm = !this.showTrackForm;

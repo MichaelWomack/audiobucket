@@ -6,7 +6,7 @@ angular.module('app').component('audioPlayer', {
         track: '<'
     },
     templateUrl: 'js/components/audio-player/audio-player.html',
-    controller: function ($scope) {
+    controller: function () {
 
         //this.$onInit = () => {
             this.isPlaying = false;

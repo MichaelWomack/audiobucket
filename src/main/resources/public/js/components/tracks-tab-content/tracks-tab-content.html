@@ -8,10 +8,10 @@
 
     <div layout="row">
         <div layout="column" flex="66">
-            <track-card ng-repeat="track in $ctrl.tracks" flex="60" flex-offset="40"
+            <track-card ng-repeat="track in $ctrl.tracks" artist="$ctrl.artist" albums='$ctrl.albums' flex="60" flex-offset="40"
                         track=track></track-card>
         </div>
     </div>
 </div>
-<audio-player track=$ctrl.tracks[0]></audio-player>
 
+<!--<audio-player track=$ctrl.tracks[0]></audio-player>-->

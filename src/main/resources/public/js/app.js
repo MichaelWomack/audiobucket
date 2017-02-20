@@ -18,16 +18,9 @@ angular.module('app', ['ui.router', 'ngMaterial'])
             url: '/register',
             template: '<register></register>'
         }).state('profile', {
-            url: '/profile',
-            templateUrl: 'html/views/profile.html',
-            controller: 'ProfileController',
-            controllerAs: 'ProfileCtrl',
-            resolve: {
-                user: function (Authentication) {
-                    return Authentication.getIdentity();
-                }
-            }
-        });
+                url: '/profile',
+                template: '<profile></profile>'
+            });
 
         $locationProvider.html5Mode(true);
 

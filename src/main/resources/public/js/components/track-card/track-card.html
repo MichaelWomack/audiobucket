@@ -2,8 +2,8 @@
     <md-card-title>
         <md-card-title-text>
             <span class="md-headline">{{$ctrl.track.name}}</span>
-            <span class="md-subhead">album: {{$ctrl.track.album}}</span>
-            <span class="md-subhead">artist: {{$ctrl.track.artist}}</span>
+            <span class="md-subhead">album: {{$ctrl.getAlbumName($ctrl.track.albumId)}}</span>
+            <span class="md-subhead">artist: {{$ctrl.artist.name}}</span>
         </md-card-title-text>
         <md-card-title-media>
             <div class="md-media-sm card-media">
