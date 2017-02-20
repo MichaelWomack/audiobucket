@@ -68,4 +68,17 @@ public class Track {
     public void setType(String type) {
         this.type = type;
     }
+
+    @Override
+    public String toString() {
+        return "Track{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", albumId=" + albumId +
+                ", artistId=" + artistId +
+                ", description='" + description + '\'' +
+                ", url='" + url + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
 }
