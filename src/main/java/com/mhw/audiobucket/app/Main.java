@@ -2,6 +2,7 @@ package com.mhw.audiobucket.app;
 
 import com.mhw.audiobucket.app.filters.AuthorizedRequestInterceptor;
 import com.mhw.audiobucket.controllers.ArtistsController;
+import com.mhw.audiobucket.controllers.TracksController;
 import com.mhw.audiobucket.controllers.UsersController;
 import com.mhw.audiobucket.util.Util;
 
@@ -41,6 +42,7 @@ public class Main {
 
         UsersController.run();
         ArtistsController.run();
+        TracksController.run();
 
         /** The key here is the content type is application/json, which
          * keeps it from returning the index.html
