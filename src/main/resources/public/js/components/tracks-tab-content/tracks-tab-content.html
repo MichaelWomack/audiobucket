@@ -4,7 +4,7 @@
         <span ng-hide="$ctrl.showTrackForm">add track</span>
         <span ng-show="$ctrl.showTrackForm">cancel</span>
     </md-button>
-    <tracks-form ng-show="$ctrl.showTrackForm"></tracks-form>
+    <tracks-form ng-show="$ctrl.showTrackForm" ng-if="$ctrl.albums" albums="$ctrl.albums"></tracks-form>
 
     <div layout="row">
         <div layout="column" flex="66">

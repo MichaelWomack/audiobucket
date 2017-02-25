@@ -5,7 +5,7 @@
 angular.module('app').component('userToolbar', {
 
     templateUrl: 'js/components/user-toolbar/user-toolbar.html',
-    controller: function (Authentication, $mdDialog) {
+    controller: function (Authentication, Artists, $mdDialog) {
         this.logout = () => {
             Authentication.logout();
         };
@@ -20,7 +20,7 @@ angular.module('app').component('userToolbar', {
                     this.close = () => {
                         $mdDialog.hide();
                     }
-                    
+
                 },
                 controllerAs: '$ctrl',
                 templateUrl: 'html/templates/account-settings-dialog.html',
@@ -29,16 +29,21 @@ angular.module('app').component('userToolbar', {
             };
             $mdDialog.show(accountSettingsDialog);
         };
-        
+
         this.openEditProfile = () => {
             let editProfileDialog = {
-                controller: function() {
+                controller: function () {
+                    this.artist = {};
+                    
                     this.close = () => {
                         $mdDialog.hide();
                     };
 
-                    this.save = () => {
-                        alert('saved');
+                    this.apply = () => {
+                        Artists.upsert(this.artist).then((response) => {
+                            let data = response.data;
+                            alert(JSON.stringify(data));
+                        });
                     };
                 },
                 controllerAs: '$ctrl',
@@ -46,7 +51,7 @@ angular.module('app').component('userToolbar', {
                 parent: angular.element(document.body),
                 clickOutsideToClose: true
             };
-            
+
             $mdDialog.show(editProfileDialog);
         }
     }

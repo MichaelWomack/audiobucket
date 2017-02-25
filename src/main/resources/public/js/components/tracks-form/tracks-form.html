@@ -14,10 +14,14 @@
 
             <md-input-container>
                 <label>album</label>
-                <md-select ng-model="$ctrl.value" size="35">
-                    <md-option value="1">value1 has some text</md-option>
-                    <md-option value="2">value 2</md-option>
+                <md-select ng-model="$ctrl.track.albumId" size="35">
+                    <md-option ng-repeat="album in $ctrl.albums" value="album.id">{{album.name}}</md-option>
                 </md-select>
+            </md-input-container>
+
+            <md-input-container>
+                <label>file</label>
+                <input type="text" ng-model="$ctrl.fileName" disabled>
             </md-input-container>
 
             <div class="row" layout-align="space-between center">
@@ -27,9 +31,9 @@
                         <span>upload</span>
                     </label>
                 </md-button>
-                <input type="file" id="track-upload" style="display: none;">
+                <input type="file" id="track-upload" ng-model="$ctrl.file" ng-change="$ctrl.showFile()" style="display: none;">
 
-                <md-button>
+                <md-button ng-click="$ctrl.showFile()">
                     <md-icon class="icon_add">add</md-icon>
                     <span>add</span>
                 </md-button>

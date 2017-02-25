@@ -8,6 +8,7 @@ public class Artist {
     private long id;
     private String name;
     private String bio;
+    private String pageUrl;
 
     public Artist() {}
 
@@ -45,12 +46,21 @@ public class Artist {
         this.bio = bio;
     }
 
+    public String getPageUrl() {
+        return pageUrl;
+    }
+
+    public void setPageUrl(String pageUrl) {
+        this.pageUrl = pageUrl;
+    }
+
     @Override
     public String toString() {
         return "Artist{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", bio='" + bio + '\'' +
+                ", pageUrl='" + pageUrl + '\'' +
                 '}';
     }
 }
