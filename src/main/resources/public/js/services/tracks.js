@@ -11,6 +11,10 @@ angular.module('app').factory('Tracks', function ($http) {
     self.getTracksByArtistId = (artistId) => {
         return $http.get(`/api/tracks/artist_id/${artistId}`); 
     };
-    
+
+    self.addTrack = (track) => {
+        return $http.post(`/api/tracks`, track);
+    };
+
     return self;
 });

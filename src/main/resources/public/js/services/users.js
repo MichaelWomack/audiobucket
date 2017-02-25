@@ -10,5 +10,9 @@ angular.module('app').factory('Users', ($http) => {
         return $http.post('/users/register', {email: email, password: password});
     };
     
+    service.updateUser = (user) => {
+        return $http.put(`/api/users`, user);  
+    };
+    
     return service;
 });

@@ -9,5 +9,9 @@ angular.module('app').factory('Artists', function($http) {
         return $http.get(`/api/artists/id/${artistId}`);
     };
     
+    self.upsert = (artist) => {
+        return $http.put(`/api/artists`, artist);
+    };
+    
     return self;
 });

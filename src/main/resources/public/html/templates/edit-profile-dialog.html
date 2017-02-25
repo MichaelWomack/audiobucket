@@ -12,22 +12,22 @@
             <div layout="row" layout-align="space-around center">
                 <md-input-container>
                     <label>artist name</label>
-                    <input type="text" size="35">
+                    <input type="text" size="35" ng-model="$ctrl.artist.name">
                 </md-input-container>
                 <md-input-container>
                     <label>genre</label>
-                    <input type="text">
+                    <input type="text" ng-model="$ctrl.artist.genre">
                 </md-input-container>
 
                 <md-input-container>
                     <label>page url</label>
-                    <input type="text">
+                    <input type="text" ng-model="$ctrl.artist.pageUrl">
                 </md-input-container>
             </div>
             <div layout="row">
                 <md-input-container>
                     <label>bio</label>
-                    <textarea cols="50" rows="5"></textarea>
+                    <textarea cols="50" rows="5" ng-model="$ctrl.artist.bio"></textarea>
                 </md-input-container>
             </div>
 
@@ -40,7 +40,7 @@
                 </md-button>
                 <input type="file" id="image-input" style="display: none;">
                 <span flex></span>
-                <md-button ng-click="$ctrl.save()">apply</md-button>
+                <md-button ng-click="$ctrl.apply()">apply</md-button>
             </div>
 
 

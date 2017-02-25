@@ -18,7 +18,7 @@ public class UsersDAO extends BaseDAO {
     private static final String BY_EMAIL = " where email = ?";
     private static final String ADD_USER = "insert into Users (email, password, date_created, is_active) " +
             "values (?, ?, now(), FALSE )";
-    private static final String UPDATE_USER = "update table Users set email = ?, password = ?";
+    private static final String UPDATE_USER = "update Users set email = ?, password = ?, artist_id = ?, is_active = ?";
 
     @Override
     public List<User> getAll() throws ApplicationConfigException, SQLException {
@@ -87,6 +87,8 @@ public class UsersDAO extends BaseDAO {
             int col = 1;
             statement.setString(col++, user.getEmail());
             statement.setString(col++, user.getPassword());
+            statement.setLong(col++, user.getArtistId());
+            statement.setBoolean(col++, user.isActive());
             statement.setLong(col++, user.getId());
             return statement.executeUpdate() == 1;
         }
