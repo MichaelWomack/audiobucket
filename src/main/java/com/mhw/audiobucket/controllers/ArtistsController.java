@@ -32,6 +32,7 @@ public class ArtistsController {
 
     public static void run() {
 
+        //TODO
         get("/api/artists", CONTENT_TYPE, (req, res) -> {
             Artist artist = new Artist("Michael", "Bio");
             return new ArrayList<>(Arrays.asList(artist, artist));
@@ -39,6 +40,7 @@ public class ArtistsController {
 
 
         put("/api/artists", CONTENT_TYPE, (req, res) -> {
+            LOGGER.log(Level.INFO, req.body());
             try {
                 Artist artist = (Artist) JsonSerializer.toObject(req.body(), Artist.class);
                 if (artist.getId() == 0L) {
@@ -50,15 +52,20 @@ public class ArtistsController {
                     return new Response(true, "Created Artist successfully");
                 }
                 else {
-                    artists.update(artist);
-                    return new Response(true, "Updated artist info successfully");
+                    boolean updated = artists.update(artist);
+                    if (updated) {
+                        return new Response(true, "Updated artist info successfully");
+                    }
+                    else {
+                        return new Response(false, "Failed to update artist info.");
+                    }
                 }
             } catch (ApplicationConfigException | SQLException e) {
                 String message = "Error updating artist info";
                 LOGGER.log(Level.SEVERE, message, e);
                 return new Response(false, message);
             }
-        });
+        }, new JsonTransformer());
 
 
         post("/api/artists", CONTENT_TYPE, (req, res) -> {
@@ -82,7 +89,6 @@ public class ArtistsController {
             String idStr = req.params(":id");
             try {
                 long artistId = Long.parseLong(idStr);
-                LOGGER.log(Level.INFO, String.valueOf(artistId));
                 Artist artist = artists.getById(artistId);
                 LOGGER.log(Level.INFO, artist.toString());
                 return new Response(true, artist);

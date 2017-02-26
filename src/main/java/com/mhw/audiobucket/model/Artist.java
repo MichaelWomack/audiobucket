@@ -8,6 +8,7 @@ public class Artist {
     private long id;
     private String name;
     private String bio;
+    private String genre;
     private String pageUrl;
 
     public Artist() {}
@@ -46,6 +47,14 @@ public class Artist {
         this.bio = bio;
     }
 
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
     public String getPageUrl() {
         return pageUrl;
     }
@@ -60,6 +69,7 @@ public class Artist {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", bio='" + bio + '\'' +
+                ", genre='" + genre + '\'' +
                 ", pageUrl='" + pageUrl + '\'' +
                 '}';
     }
