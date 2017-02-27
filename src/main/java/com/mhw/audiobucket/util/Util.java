@@ -22,5 +22,9 @@ public class Util {
         InputStream in = classLoader.getResourceAsStream(resource);
         return in;
     }
+
+    public static String inputStreamToString(InputStream inputStream) throws IOException {
+        return CharStreams.toString(new InputStreamReader(inputStream));
+    }
 }
 
