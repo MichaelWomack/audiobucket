@@ -3,9 +3,16 @@
  */
 
 angular.module('app').component('userToolbar', {
-
+    bindings: {
+        user: '<',
+        artist: '<'
+    },
+    require: {
+        profileCtrl: '^profile'
+    },
     templateUrl: 'js/components/user-toolbar/user-toolbar.html',
     controller: function (Authentication, Artists, $mdDialog) {
+
         this.logout = () => {
             Authentication.logout();
         };
@@ -31,21 +38,38 @@ angular.module('app').component('userToolbar', {
         };
 
         this.openEditProfile = () => {
+            let currentArtistInfo = this.artist;
+            let profileCtrl = this.profileCtrl;
             let editProfileDialog = {
                 controller: function () {
-                    this.artist = {};
-                    
+                    this.artistInfo = currentArtistInfo;
+
                     this.close = () => {
                         $mdDialog.hide();
                     };
 
                     this.apply = () => {
-                        Artists.upsert(this.artist).then((response) => {
-                            let data = response.data;
-                            alert(JSON.stringify(data));
+                        let formData = new FormData();
+                        formData.append("profileImage", this.file);
+                        Object.keys(this.artistInfo)
+                            .forEach((key) => formData.append(key, this.artistInfo[key]));
+
+                        Artists.upsert(formData).then((response) => {
+                            alert(JSON.stringify(response));
                         });
+                        // Artists.upsert(this.artistInfo).then((response) => {
+                        //     let data = response.config.data;
+                        //     alert(JSON.stringify(response));
+                        //     alert(JSON.stringify(data));
+                        //     profileCtrl.updateData();
+                        // });
                     };
-                },
+
+                    this.setFile = (fileInput) => {
+                        this.file = fileInput.files[0];
+                    };
+                }
+                ,
                 controllerAs: '$ctrl',
                 templateUrl: 'html/templates/edit-profile-dialog.html',
                 parent: angular.element(document.body),

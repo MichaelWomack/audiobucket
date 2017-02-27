@@ -1,7 +1,9 @@
 <!--Inject auth service, username-->
 <md-toolbar>
     <div layout="row" layout-padding layout-align="space-between center">
-        <div class="md-display-1">Don Miguel</div>
+        <div layout="row" layout-align="space-around center">
+            <div class="md-header">{{$ctrl.artist.name}}</div>
+        </div>
 
         <md-fab-toolbar md-direction="left" md-open="false">
             <md-fab-trigger>
