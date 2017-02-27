@@ -8,26 +8,26 @@
     </md-toolbar>
 
     <md-dialog-content class="md-dialog-content">
-        <form>
+        <form enctype="multipart/form-data">
             <div layout="row" layout-align="space-around center">
                 <md-input-container>
                     <label>artist name</label>
-                    <input type="text" size="35" ng-model="$ctrl.artist.name">
+                    <input type="text" size="35" ng-model="$ctrl.artistInfo.name">
                 </md-input-container>
                 <md-input-container>
                     <label>genre</label>
-                    <input type="text" ng-model="$ctrl.artist.genre">
+                    <input type="text" ng-model="$ctrl.artistInfo.genre">
                 </md-input-container>
 
                 <md-input-container>
                     <label>page url</label>
-                    <input type="text" ng-model="$ctrl.artist.pageUrl">
+                    <input type="text" ng-model="$ctrl.artistInfo.pageUrl">
                 </md-input-container>
             </div>
             <div layout="row">
                 <md-input-container>
                     <label>bio</label>
-                    <textarea cols="50" rows="5" ng-model="$ctrl.artist.bio"></textarea>
+                    <textarea cols="50" rows="5" ng-model="$ctrl.artistInfo.bio"></textarea>
                 </md-input-container>
             </div>
 
@@ -38,7 +38,7 @@
                         profile image
                     </label>
                 </md-button>
-                <input type="file" id="image-input" style="display: none;">
+                <input type="file" name="profile_image" id="image-input" style="display: none;" onchange="angular.element(this).controller().setFile(this)">
                 <span flex></span>
                 <md-button ng-click="$ctrl.apply()">apply</md-button>
             </div>

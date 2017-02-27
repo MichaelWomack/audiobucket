@@ -6,6 +6,10 @@ angular.module('app').component('profile', {
     controller: function (Authentication, Artists) {
         
         this.$onInit = () => {
+            this.updateData();
+        };
+        
+        this.updateData = () => {
             Authentication.getIdentity().then((response) => {
                 this.user = response.data.user;
                 console.log(this.user);
@@ -13,6 +17,7 @@ angular.module('app').component('profile', {
                 Artists.getById(this.user.artistId).success((response) => {
                     //console.log(response);
                     this.artist = response.artist;
+                    console.log(this.artist);
                 });
             });
         };

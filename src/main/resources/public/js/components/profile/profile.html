@@ -1,7 +1,11 @@
-<user-toolbar></user-toolbar>
+<user-toolbar user="$ctrl.user" artist="$ctrl.artist"></user-toolbar>
 
 <!--component (will be used later)-->
 <md-card>
+    <div ng-if=$ctrl.artist.name layout="row" layout-align="space-between center" layout-padding>
+        <div class="md-headline">{{$ctrl.artist.name}}</div>
+        <h4 class="md-subhead" ng-if=$ctrl.artist.pageUrl>audiobucket.com/artist/{{$ctrl.artist.pageUrl}}</h4>
+    </div>
     <div layout="row" layout-align="center">
         <md-card-title>
             <md-card-title-media>
@@ -13,16 +17,12 @@
                 <div layout="row" layout-align="space-around">
                     <div layout="column" flex="55">
                         <div class="md-headline">Bio</div>
-                        <div>"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
-                            velit..."
-                            "There is no one who loves pain itself, who seeks after it and wants to have it, simply
-                            because it is pain..."
-                        </div>
+                        <div class="md-subhead">{{$ctrl.artist.bio}}</div>
                     </div>
 
                     <div layout="column" flex="30">
                         <div class="md-headline">Genre</div>
-                        <div class="md-subhead">Rock/Alternative/Ambient/Experimental/Jazz</div>
+                        <div class="md-subhead">{{$ctrl.artist.genre}}</div>
                     </div>
                 </div>
             </md-card-title-text>
@@ -30,16 +30,19 @@
     </div>
 </md-card>
 
-<!--Make component?-->
+<!--Make component-->
 <md-content>
     <md-tabs md-dynamic-height md-border-bottom>
         <md-tab label="tracks">
+            <!--Make the component so that editing is disabled-->
             <tracks-tab-content ng-if="$ctrl.artist" artist="$ctrl.artist"></tracks-tab-content>
         </md-tab>
         <md-tab label="albums">
+            <!--Make the component so that editing can be disabled-->
             <albums></albums>
         </md-tab>
         <md-tab label="following">
+            <!--Make the component so that editing can be disabled-->
             <followers></followers>
         </md-tab>
         <md-tab label="favorites">
