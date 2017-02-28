@@ -10,7 +10,6 @@ import com.mhw.audiobucket.persistence.ArtistsDAO;
 import com.mhw.audiobucket.persistence.UsersDAO;
 import com.mhw.audiobucket.serialization.JsonSerializer;
 import com.mhw.audiobucket.util.Util;
-import spark.utils.IOUtils;
 
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +17,9 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
