@@ -29,11 +29,16 @@ public abstract class BaseDAO {
 
     private String getConnectionUrl() throws ApplicationConfigException {
         props = new DatabaseConfig();
-        return String.format("jdbc:mysql://%s:%s/%s?user=%s&password=%s",
-                props.getProperty("host"),
-                props.getProperty("port"),
+        return String.format("jdbc:mysql://google/%s?cloudSqlInstance=%s&socketFactory=com.google.cloud.sql.mysql.SocketFactory&user=%s&password=%s",
                 props.getProperty("database"),
+                props.getProperty("cloud_sql_instance"),
                 props.getProperty("user"),
                 props.getProperty("password"));
+//        return String.format("jdbc:mysql://%s:%s/%s?user=%s&password=%s",
+//                props.getProperty("host"),
+//                props.getProperty("port"),
+//                props.getProperty("database"),
+//                props.getProperty("user"),
+//                props.getProperty("password"));
     }
 }

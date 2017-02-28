@@ -75,7 +75,7 @@ public class UsersDAO extends BaseDAO {
 
             long id = -1;
             if (rs.next()) {
-                id = rs.getLong("id");
+                id = rs.getLong(1);
             }
             return id;
         }
@@ -108,11 +108,12 @@ public class UsersDAO extends BaseDAO {
     public static void main(String[] args) throws ApplicationConfigException, SQLException {
         UsersDAO users = new UsersDAO();
         User user = new User();
-        user.setArtistId(1);
         user.setDateCreated(new Date());
         user.setActive(false);
         user.setPassword("temporaryPwd");
         user.setEmail("mike@gmail.com");
+
+        System.out.println(users.insert(user));
 
     }
 }

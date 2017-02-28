@@ -1,6 +1,7 @@
 package com.mhw.audiobucket.app;
 
 import com.mhw.audiobucket.app.filters.AuthorizedRequestInterceptor;
+import com.mhw.audiobucket.config.exception.ApplicationConfigException;
 import com.mhw.audiobucket.controllers.ArtistsController;
 import com.mhw.audiobucket.controllers.TracksController;
 import com.mhw.audiobucket.controllers.UsersController;
@@ -22,7 +23,7 @@ public class Main {
     public static final Logger LOGGER = Logger.getLogger(Main.class.getName());
     public static final String STATIC_RESOURCES = "src/main/resources/public";
 
-    public static void main(String[] args) throws UnknownHostException {
+    public static void main(String[] args) throws UnknownHostException, ApplicationConfigException {
 
         port(8080);
         boolean localhost = InetAddress

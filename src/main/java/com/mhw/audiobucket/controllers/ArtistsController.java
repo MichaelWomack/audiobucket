@@ -1,7 +1,9 @@
 package com.mhw.audiobucket.controllers;
 
+import com.google.cloud.storage.Blob;
 import com.google.gson.JsonObject;
 import com.mhw.audiobucket.app.transformer.JsonTransformer;
+import com.mhw.audiobucket.config.StorageConfig;
 import com.mhw.audiobucket.config.exception.ApplicationConfigException;
 import com.mhw.audiobucket.model.Artist;
 import com.mhw.audiobucket.model.Response;
@@ -9,6 +11,7 @@ import com.mhw.audiobucket.model.User;
 import com.mhw.audiobucket.persistence.ArtistsDAO;
 import com.mhw.audiobucket.persistence.UsersDAO;
 import com.mhw.audiobucket.serialization.JsonSerializer;
+import com.mhw.audiobucket.storage.CloudStorageManager;
 import com.mhw.audiobucket.util.Util;
 
 import javax.servlet.MultipartConfigElement;
@@ -34,8 +37,11 @@ public class ArtistsController {
     private static final Logger LOGGER = Logger.getLogger(ArtistsController.class.getName());
     private static final ArtistsDAO artists = new ArtistsDAO();
     private static final UsersDAO users = new UsersDAO();
+    private static final CloudStorageManager storageManager = new CloudStorageManager();
 
-    public static void run() {
+    public static void run() throws ApplicationConfigException {
+
+        StorageConfig storageConfig = new StorageConfig();
 
         //TODO
         get("/api/artists", CONTENT_TYPE, (req, res) -> {
@@ -56,9 +62,12 @@ public class ArtistsController {
                         requestJson.addProperty(part.getName(), Util.inputStreamToString(part.getInputStream()));
                     }
                     else {
+                        String userId = req.cookie("identity");
                         try (InputStream profileImageStream = part.getInputStream()) {
-                            //TODO create cloud storage utilities to upload file
-                            LOGGER.log(Level.WARNING, "File included: " + part.getName());
+                            String profileImagePath = storageManager.getStorageNameForImage(userId, part.getName());
+                            Blob profileImage = storageManager.uploadBlobFromInputStream(storageConfig.getProperty("bucket_name"),
+                                    profileImagePath, profileImageStream, null);
+
                         }
                     }
                 }
