@@ -6,14 +6,25 @@
 
     <groupId>com.michaelwomack</groupId>
     <artifactId>audiobucket</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <properties>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
+
         <appengine.maven.plugin>1.0.0</appengine.maven.plugin>
+        <app.stage.artifact>${project.build.directory}/audiobucket-1.0-jar-with-dependencies.jar</app.stage.artifact>
     </properties>
 
     <build>
         <plugins>
+
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>appengine-maven-plugin</artifactId>
+                <version>${appengine.maven.plugin}</version>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -25,6 +36,28 @@
 
 
             <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.mhw.audiobucket.app.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.4.0</version>
@@ -32,7 +65,7 @@
                     <mainClass>com.mhw.audiobucket.app.Main</mainClass>
                     <arguments>
                         <argument>-jar</argument>
-                        <argument>target/spark-1.0-jar-with-dependencies.jar</argument>
+                        <argument>target/audiobucket-1.0-jar-with-dependencies.jar</argument>
                     </arguments>
                 </configuration>
             </plugin>
@@ -40,6 +73,8 @@
     </build>
 
     <dependencies>
+
+
         <dependency>
             <groupId>com.sparkjava</groupId>
             <artifactId>spark-core</artifactId>
@@ -77,9 +112,9 @@
         </dependency>
 
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.6</version>
+            <groupId>com.google.cloud</groupId>
+            <artifactId>google-cloud-datastore</artifactId>
+            <version>0.9.3-beta</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/com.google.cloud/google-cloud-storage -->
@@ -89,10 +124,23 @@
             <version>0.7.0</version>
         </dependency>
 
+        <dependency>                        <!-- http://dev.mysql.com/doc/connector-j/en/ -->
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>6.0.5</version>
+        </dependency>
+
         <dependency>
             <groupId>com.google.cloud.sql</groupId>
-            <artifactId>mysql-socket-factory</artifactId>
+            <artifactId>mysql-socket-factory-connector-j-6</artifactId>
             <version>1.0.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
         </dependency>
 
     </dependencies>
