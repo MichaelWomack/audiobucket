@@ -12,21 +12,21 @@ import java.sql.SQLException;
  */
 public abstract class BaseDAO {
 
-    private DatabaseConfig props;
+    private DatabaseConfig config;
 
     protected Connection getConnection() throws SQLException, ApplicationConfigException {
-        props = new DatabaseConfig();
+        config = new DatabaseConfig();
         String url = getConnectionUrl();
-        String user = props.getProperty("user");
-        String password = props.getProperty("password");
+        String user = config.getProperty("user");
+        String password = config.getProperty("password");
         Connection conn = DriverManager.getConnection(url, user, password);
         return conn;
     }
 
     private String getConnectionUrl() throws ApplicationConfigException {
         return String.format("jdbc:mysql://%s:%s/%s",
-                props.getProperty("host"),
-                props.getProperty("port"),
-                props.getProperty("database"));
+                config.getProperty("host"),
+                config.getProperty("port"),
+                config.getProperty("database"));
     }
 }
