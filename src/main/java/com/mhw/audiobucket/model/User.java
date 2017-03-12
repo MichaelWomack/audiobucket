@@ -69,4 +69,16 @@ public class User {
     public void setArtistId(long artistId) {
         this.artistId = artistId;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", dateCreated=" + dateCreated +
+                ", isActive=" + isActive +
+                ", artistId=" + artistId +
+                '}';
+    }
 }
