@@ -7,9 +7,14 @@ public enum LifeCycle {
 
     DEV("dev"), QA("qa"), PR("prod");
 
-    private String propertiesPath;
+    private String configName;
 
     LifeCycle(String propertiesPath) {
-        this.propertiesPath = propertiesPath;
+        this.configName = propertiesPath;
+    }
+
+
+    public String getConfigName() {
+        return configName;
     }
 }
