@@ -6,7 +6,6 @@ import com.mhw.audiobucket.util.Util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import java.util.logging.Logger;
 
 /**
  * Created by michaelwomack on 1/14/17.
@@ -15,7 +14,6 @@ public abstract class BaseConfig extends Properties {
 
     protected String getPropertiesPath() {
         String lcpValue = System.getenv("AB_LCP");
-        System.out.println(lcpValue);
         return "config/" + LifeCycle.valueOf(lcpValue).getConfigName() + "/";
     }
 
