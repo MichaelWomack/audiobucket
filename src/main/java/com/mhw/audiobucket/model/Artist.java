@@ -10,6 +10,7 @@ public class Artist {
     private String bio;
     private String genre;
     private String pageUrl;
+    private String profileImageUrl;
 
     public Artist() {}
 
@@ -63,6 +64,10 @@ public class Artist {
         this.pageUrl = pageUrl;
     }
 
+    public String getProfileImageUrl() {
+        return profileImageUrl;
+    }
+
     @Override
     public String toString() {
         return "Artist{" +
@@ -71,6 +76,7 @@ public class Artist {
                 ", bio='" + bio + '\'' +
                 ", genre='" + genre + '\'' +
                 ", pageUrl='" + pageUrl + '\'' +
+                ", profileImageUrl='" + profileImageUrl + '\'' +
                 '}';
     }
 }

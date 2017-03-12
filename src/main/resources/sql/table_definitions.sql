@@ -12,7 +12,8 @@ CREATE TABLE Artists(
   name VARCHAR(100),
   bio VARCHAR(500),
   genre VARCHAR(50),
-  page_url VARCHAR(100)
+  page_url VARCHAR(100),
+  profile_image_url VARCHAR(150)
 );
 
 CREATE TABLE Albums(
