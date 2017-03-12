@@ -3,12 +3,8 @@ package com.mhw.audiobucket.persistence;
 import com.mhw.audiobucket.config.exception.ApplicationConfigException;
 import com.mhw.audiobucket.model.Track;
 import com.mhw.audiobucket.persistence.base.BaseDAO;
-import com.mysql.jdbc.Statement;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,12 +20,6 @@ public class TracksDAO extends BaseDAO {
             "values(?,?,?,?,?,?)";
     private static final String UPDATE = "update Tracks set name=?, description=?, album_id=?, artist_id=?, type=?, url=?";
 
-    @Override
-    protected List<?> getAll() throws ApplicationConfigException, SQLException {
-        return null;
-    }
-
-    @Override
     public Track getById(long id) throws ApplicationConfigException, SQLException {
         try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement(GET_ALL + BY_ID);
@@ -103,20 +93,5 @@ public class TracksDAO extends BaseDAO {
         track.setType(rs.getString("type"));
         track.setUrl(rs.getString("url"));
         return track;
-    }
-
-    public static void main(String[] args) throws SQLException, ApplicationConfigException {
-        TracksDAO dao = new TracksDAO();
-//        Track track = new Track();
-//        track.setUrl("gs://fake-url");
-//        track.setType("audio/mp3");
-//        track.setArtistId(1);
-//        track.setAlbumId(1);
-//        track.setName("The Track");
-//        track.setDescription("Here's a track example");
-//        track.setId(dao.insert(track));
-//        track.setDescription("You'll know when there's a new description");
-//        System.out.println(dao.update(track));
-        System.out.println(dao.getById(1));
     }
 }

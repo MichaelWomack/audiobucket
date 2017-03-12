@@ -5,22 +5,21 @@ import com.mhw.audiobucket.model.User;
 import com.mhw.audiobucket.persistence.base.BaseDAO;
 
 import java.sql.*;
-import java.util.*;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by michaelwomack on 1/14/17.
  */
 public class UsersDAO extends BaseDAO {
 
-    private static final String GET_ALL_USERS = "select * from users";
+    private static final String GET_ALL_USERS = "select * from Users";
     private static final String BY_ID = " where id = ?";
     private static final String BY_EMAIL = " where email = ?";
     private static final String ADD_USER = "insert into Users (email, password, date_created, is_active) " +
             "values (?, ?, now(), FALSE )";
     private static final String UPDATE_USER = "update Users set email = ?, password = ?, artist_id = ?, is_active = ?";
 
-    @Override
     public List<User> getAll() throws ApplicationConfigException, SQLException {
         List<User> users = new ArrayList<>();
         try (Connection conn = getConnection()) {
@@ -35,7 +34,6 @@ public class UsersDAO extends BaseDAO {
         return users;
     }
 
-    @Override
     public User getById(long id) throws ApplicationConfigException, SQLException {
         User user = null;
         try (Connection conn = getConnection()) {
@@ -103,17 +101,5 @@ public class UsersDAO extends BaseDAO {
         user.setDateCreated(resultSet.getTimestamp("date_created"));
         user.setArtistId(resultSet.getLong("artist_id"));
         return user;
-    }
-
-    public static void main(String[] args) throws ApplicationConfigException, SQLException {
-        UsersDAO users = new UsersDAO();
-        User user = new User();
-        user.setDateCreated(new Date());
-        user.setActive(false);
-        user.setPassword("temporaryPwd");
-        user.setEmail("mike@gmail.com");
-
-        System.out.println(users.insert(user));
-
     }
 }

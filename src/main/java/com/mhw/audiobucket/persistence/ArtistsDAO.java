@@ -5,7 +5,6 @@ import com.mhw.audiobucket.model.Artist;
 import com.mhw.audiobucket.persistence.base.BaseDAO;
 
 import java.sql.*;
-import java.util.List;
 
 /**
  * Created by michaelwomack on 2/18/17.
@@ -17,12 +16,6 @@ public class ArtistsDAO extends BaseDAO {
     private static final String UPDATE = "update Artists set name=?, bio=?, genre=?, page_url=?";
     private static final String BY_ID = " where id = ?";
 
-    @Override
-    public List<?> getAll() throws ApplicationConfigException, SQLException {
-        return null;
-    }
-
-    @Override
     public Artist getById(long id) throws ApplicationConfigException, SQLException {
         try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement(GET_ALL + BY_ID);
@@ -35,7 +28,6 @@ public class ArtistsDAO extends BaseDAO {
             return artist;
         }
     }
-
 
     public long insert(Artist artist) throws SQLException, ApplicationConfigException {
         try (Connection conn = getConnection()) {
@@ -77,10 +69,5 @@ public class ArtistsDAO extends BaseDAO {
         artist.setGenre(rs.getString("genre"));
         artist.setPageUrl(rs.getString("page_url"));
         return artist;
-    }
-
-    public static void main(String[] args) throws SQLException, ApplicationConfigException {
-        ArtistsDAO dao = new ArtistsDAO();
-        System.out.println(dao.getById(1));
     }
 }
