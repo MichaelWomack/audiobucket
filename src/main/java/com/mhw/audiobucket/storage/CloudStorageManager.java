@@ -54,10 +54,21 @@ public class CloudStorageManager {
     }
 
     public String getStorageNameForImage(String userId, String fileName) {
-        return "user_" + userId + "/images/" + fileName;
+        return "users/" + userId + "/images/" + fileName;
     }
 
     public String getStorageNameForAudio(String userId, String fileName) {
-        return "user_" + userId + "/audio/" + fileName;
+        return "users/" + userId + "/audio/" + fileName;
+    }
+
+    public static void main(String[] args) {
+        CloudStorageManager manage = new CloudStorageManager();
+        Bucket b = manage.getBucket("audiobucket-dev");
+
+        Iterator<Blob> list = manage.getBucketBlobs("audiobucket-dev");
+        Blob blob = list.next();
+        System.out.println(blob.getSelfLink());
+
+
     }
 }
