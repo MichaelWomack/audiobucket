@@ -19,6 +19,7 @@ public class UsersDAO extends BaseDAO {
     private static final String ADD_USER = "insert into Users (email, password, date_created, is_active) " +
             "values (?, ?, now(), FALSE )";
     private static final String UPDATE_USER = "update Users set email = ?, password = ?, artist_id = ?, is_active = ?";
+    private static final String DELETE_USER = "delete from Users";
 
     public List<User> getAll() throws ApplicationConfigException, SQLException {
         List<User> users = new ArrayList<>();
@@ -88,6 +89,14 @@ public class UsersDAO extends BaseDAO {
             statement.setLong(col++, user.getArtistId());
             statement.setBoolean(col++, user.isActive());
             statement.setLong(col++, user.getId());
+            return statement.executeUpdate() == 1;
+        }
+    }
+
+    public boolean delete(User user) throws SQLException, ApplicationConfigException {
+        try (Connection conn = getConnection()) {
+            PreparedStatement statement = conn.prepareStatement(DELETE_USER + BY_EMAIL);
+            statement.setString(1, user.getEmail());
             return statement.executeUpdate() == 1;
         }
     }
