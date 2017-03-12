@@ -1,4 +1,4 @@
-package com.mhw.audiobucket.controllers;
+package com.mhw.audiobucket.services;
 
 import com.mhw.audiobucket.app.transformer.JsonTransformer;
 import com.mhw.audiobucket.config.exception.ApplicationConfigException;
@@ -16,10 +16,10 @@ import static spark.Spark.get;
 /**
  * Created by michaelwomack on 2/19/17.
  */
-public class TracksController {
+public class TracksService {
 
     private static final String CONTENT_TYPE = "application/json";
-    private static final Logger LOGGER = Logger.getLogger(TracksController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(TracksService.class.getName());
     private static final TracksDAO tracks = new TracksDAO();
 
     public static void run() {

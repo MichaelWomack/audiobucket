@@ -1,4 +1,4 @@
-package com.mhw.audiobucket.controllers;
+package com.mhw.audiobucket.services;
 
 import com.google.gson.JsonObject;
 import com.mhw.audiobucket.config.exception.ApplicationConfigException;
@@ -9,6 +9,7 @@ import com.mhw.audiobucket.security.JwtUtil;
 import com.mhw.audiobucket.model.Response;
 import com.mhw.audiobucket.serialization.JsonSerializer;
 import com.mhw.audiobucket.app.transformer.JsonTransformer;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.SQLException;
@@ -23,9 +24,9 @@ import static spark.Spark.put;
 /**
  * Created by michaelwomack on 1/8/17.
  */
-public class UsersController {
+public class UsersService {
 
-    private static final Logger LOGGER = Logger.getLogger(UsersController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(UsersService.class.getName());
     private static final String CONTENT_TYPE = "application/json";
     private static UsersDAO users = new UsersDAO();
 
@@ -90,15 +91,15 @@ public class UsersController {
                         return new Response(true, "Successful Login.", token);
                     } catch (JwtException e) {
                         String message = "Failed to create token: " + e.getMessage();
-                        LOGGER.log(Level.SEVERE, message, e);
+                        LOGGER.log(Level.SEVERE, message + " " + ExceptionUtils.getStackTrace(e), e);
                         return new Response(false, message);
                     }
                 } else {
                     return new Response(false, "Incorrect credentials.");
                 }
             } catch (Exception e) {
-                LOGGER.log(Level.SEVERE, "Errors", e);
-                return new Response(false, e.getMessage());
+                LOGGER.log(Level.SEVERE, "Errors occurred while trying to login: " + ExceptionUtils.getStackTrace(e), e);
+                return new Response(false, "Error logging in: " + ExceptionUtils.getStackTrace(e));
             }
 
         }, new JsonTransformer());

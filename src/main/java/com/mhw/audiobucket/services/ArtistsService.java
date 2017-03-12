@@ -1,4 +1,4 @@
-package com.mhw.audiobucket.controllers;
+package com.mhw.audiobucket.services;
 
 import com.google.cloud.storage.Blob;
 import com.google.gson.JsonObject;
@@ -31,10 +31,10 @@ import static spark.Spark.*;
 /**
  * Created by mxw4182 on 12/22/16.
  */
-public class ArtistsController {
+public class ArtistsService {
 
     private static final String CONTENT_TYPE = "application/json";
-    private static final Logger LOGGER = Logger.getLogger(ArtistsController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(ArtistsService.class.getName());
     private static final ArtistsDAO artists = new ArtistsDAO();
     private static final UsersDAO users = new UsersDAO();
     private static final CloudStorageManager storageManager = new CloudStorageManager();
