@@ -24,7 +24,8 @@ public abstract class BaseDAO {
     }
 
     private String getConnectionUrl() throws ApplicationConfigException {
-        return String.format("jdbc:mysql://%s:%s/%s",
+        return String.format("%s%s:%s/%s",
+                config.getProperty("jdbc_base"),
                 config.getProperty("host"),
                 config.getProperty("port"),
                 config.getProperty("database"));
