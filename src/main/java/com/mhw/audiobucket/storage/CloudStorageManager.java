@@ -1,13 +1,10 @@
 package com.mhw.audiobucket.storage;
 
-import com.google.cloud.Page;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Bucket;
 import com.google.cloud.storage.Storage;
 import com.google.cloud.storage.StorageOptions;
-import com.mhw.audiobucket.util.Util;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -39,7 +36,6 @@ public class CloudStorageManager {
             Blob storageBlob = storageBlobs.next();
             blobNames.add(storageBlob.getName());
         }
-
         return blobNames;
     }
 
@@ -48,9 +44,20 @@ public class CloudStorageManager {
         return storage.get(bucketName);
     }
 
+    public Blob getBlob(String bucketName, String blobName) {
+        Bucket bucket = getBucket(bucketName);
+        return bucket.get(blobName);
+    }
+
     public Blob uploadBlobFromInputStream(String bucketName, String blobName, InputStream inputStream, String contentType) {
         Bucket bucket = getBucket(bucketName);
         return bucket.create(blobName, inputStream, contentType);
+    }
+
+    public boolean deleteBlob(String bucketName, String blobName) {
+        Bucket bucket = getBucket(bucketName);
+        Blob blob = getBlob(bucketName, blobName);
+        return blob.delete(Blob.BlobSourceOption.metagenerationMatch());
     }
 
     public String getStorageNameForImage(String userId, String fileName) {
@@ -59,16 +66,5 @@ public class CloudStorageManager {
 
     public String getStorageNameForAudio(String userId, String fileName) {
         return "users/" + userId + "/audio/" + fileName;
-    }
-
-    public static void main(String[] args) {
-        CloudStorageManager manage = new CloudStorageManager();
-        Bucket b = manage.getBucket("audiobucket-dev");
-
-        Iterator<Blob> list = manage.getBucketBlobs("audiobucket-dev");
-        Blob blob = list.next();
-        System.out.println(blob.getSelfLink());
-
-
     }
 }
