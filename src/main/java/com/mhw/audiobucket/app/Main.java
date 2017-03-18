@@ -2,9 +2,9 @@ package com.mhw.audiobucket.app;
 
 import com.mhw.audiobucket.app.filters.AuthorizedRequestInterceptor;
 import com.mhw.audiobucket.config.exception.ApplicationConfigException;
-import com.mhw.audiobucket.controllers.ArtistsController;
-import com.mhw.audiobucket.controllers.TracksController;
-import com.mhw.audiobucket.controllers.UsersController;
+import com.mhw.audiobucket.services.ArtistsService;
+import com.mhw.audiobucket.services.TracksService;
+import com.mhw.audiobucket.services.UsersService;
 import com.mhw.audiobucket.util.Util;
 
 import java.net.InetAddress;
@@ -41,15 +41,15 @@ public class Main {
             LOGGER.log(Level.INFO, req.requestMethod() + " " + req.pathInfo());
         });
 
-        UsersController.run();
-        ArtistsController.run();
-        TracksController.run();
+        UsersService.run();
+        ArtistsService.run();
+        TracksService.run();
 
         /** The key here is the content type is application/json, which
          * keeps it from returning the index.html
          * **/
         get("*", CONTENT_TYPE, (req, res) -> {
-            return Util.readResouce("public/index.html");
+            return Util.readResource("public/index.html");
         });
     }
 }
