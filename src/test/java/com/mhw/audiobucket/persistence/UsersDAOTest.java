@@ -1,9 +1,13 @@
 package com.mhw.audiobucket.persistence;
 
+import com.google.inject.Guice;
+import com.google.inject.Inject;
 import com.mhw.audiobucket.config.exception.ApplicationConfigException;
+import com.mhw.audiobucket.config.module.TestModule;
 import com.mhw.audiobucket.model.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
@@ -16,13 +20,13 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class UsersDAOTest {
 
-    private static UsersDAO users;
-    private static User testUser;
+    @Inject
+    private UsersDAO users;
+    private static User testUser = new User("test@test.com", "test");;
 
-    @BeforeAll
-    static void setUp() {
-        users = new UsersDAO();
-        testUser =  new User("test@test.com", "test");
+    @BeforeEach
+    void setUp() {
+        Guice.createInjector(new TestModule()).injectMembers(this);
     }
 
     @AfterEach
