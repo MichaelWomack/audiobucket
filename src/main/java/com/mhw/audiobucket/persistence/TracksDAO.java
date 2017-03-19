@@ -20,7 +20,7 @@ public class TracksDAO extends BaseDAO {
             "values(?,?,?,?,?,?)";
     private static final String UPDATE = "update Tracks set name=?, description=?, album_id=?, artist_id=?, type=?, url=?";
 
-    public Track getById(long id) throws ApplicationConfigException, SQLException {
+    public Track getById(long id) throws SQLException {
         try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement(GET_ALL + BY_ID);
             statement.setLong(1, id);
@@ -33,7 +33,7 @@ public class TracksDAO extends BaseDAO {
         }
     }
 
-    public List<Track> getTracksByArtistId(long artistId) throws SQLException, ApplicationConfigException {
+    public List<Track> getTracksByArtistId(long artistId) throws SQLException {
         try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement(GET_ALL + BY_ARTIST_ID);
             statement.setLong(1, artistId);
@@ -47,7 +47,7 @@ public class TracksDAO extends BaseDAO {
         }
     }
 
-    public long insert(Track track) throws SQLException, ApplicationConfigException {
+    public long insert(Track track) throws SQLException {
         try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
             int col = 1;
@@ -68,7 +68,7 @@ public class TracksDAO extends BaseDAO {
          }
     }
 
-    public boolean update(Track track) throws SQLException, ApplicationConfigException {
+    public boolean update(Track track) throws SQLException {
         try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement(UPDATE + BY_ID);
             int col = 1;

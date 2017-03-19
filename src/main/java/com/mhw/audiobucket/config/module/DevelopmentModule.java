@@ -1,6 +1,7 @@
 package com.mhw.audiobucket.config.module;
 
 import com.google.inject.AbstractModule;
+import com.mhw.audiobucket.config.module.base.PropertyModule;
 import com.mhw.audiobucket.persistence.manager.CloudDatabaseManager;
 import com.mhw.audiobucket.persistence.manager.DatabaseManager;
 

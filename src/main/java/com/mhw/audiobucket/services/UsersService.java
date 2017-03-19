@@ -1,14 +1,14 @@
 package com.mhw.audiobucket.services;
 
 import com.google.gson.JsonObject;
-import com.mhw.audiobucket.config.exception.ApplicationConfigException;
-import com.mhw.audiobucket.security.exception.JwtException;
+import com.google.inject.Inject;
+import com.mhw.audiobucket.app.transformer.JsonTransformer;
+import com.mhw.audiobucket.model.Response;
 import com.mhw.audiobucket.model.User;
 import com.mhw.audiobucket.persistence.UsersDAO;
 import com.mhw.audiobucket.security.JwtUtil;
-import com.mhw.audiobucket.model.Response;
+import com.mhw.audiobucket.security.exception.JwtException;
 import com.mhw.audiobucket.serialization.JsonSerializer;
-import com.mhw.audiobucket.app.transformer.JsonTransformer;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -17,9 +17,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static spark.Spark.get;
-import static spark.Spark.post;
-import static spark.Spark.put;
+import static spark.Spark.*;
+
+;
 
 /**
  * Created by michaelwomack on 1/8/17.
@@ -28,15 +28,17 @@ public class UsersService {
 
     private static final Logger LOGGER = Logger.getLogger(UsersService.class.getName());
     private static final String CONTENT_TYPE = "application/json";
-    private static UsersDAO users = new UsersDAO();
 
-    public static void run() {
+    @Inject
+    private UsersDAO users;
+
+    public void init() {
 
         get("/api/users", CONTENT_TYPE, (req, res) -> {
             try {
                 List<User> allUsers = users.getAll();
                 return new Response(true, allUsers);
-            } catch (SQLException | ApplicationConfigException e) {
+            } catch (SQLException e) {
                 return new Response(false, "Error occurred while getting users: " + e);
             }
         }, new JsonTransformer());
@@ -121,6 +123,4 @@ public class UsersService {
             return new Response(true, message);
         }, new JsonTransformer());
     }
-
-
 }

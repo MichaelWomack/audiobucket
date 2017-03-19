@@ -1,4 +1,4 @@
-package com.mhw.audiobucket.config.module;
+package com.mhw.audiobucket.config.module.base;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.name.Names;

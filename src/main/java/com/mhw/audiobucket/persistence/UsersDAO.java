@@ -21,7 +21,7 @@ public class UsersDAO extends BaseDAO {
     private static final String UPDATE_USER = "update Users set email = ?, password = ?, artist_id = ?, is_active = ?";
     private static final String DELETE_USER = "delete from Users";
 
-    public List<User> getAll() throws ApplicationConfigException, SQLException {
+    public List<User> getAll() throws SQLException {
         List<User> users = new ArrayList<>();
         try (Connection conn = getConnection()) {
             Statement statement = conn.createStatement();
@@ -35,7 +35,7 @@ public class UsersDAO extends BaseDAO {
         return users;
     }
 
-    public User getById(long id) throws ApplicationConfigException, SQLException {
+    public User getById(long id) throws SQLException {
         User user = null;
         try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement(GET_ALL_USERS + BY_ID);
@@ -49,7 +49,7 @@ public class UsersDAO extends BaseDAO {
         return user;
     }
 
-    public User getUserByEmail(String email) throws SQLException, ApplicationConfigException {
+    public User getUserByEmail(String email) throws SQLException {
         User user = null;
         try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement(GET_ALL_USERS + BY_EMAIL);
@@ -63,7 +63,7 @@ public class UsersDAO extends BaseDAO {
         return user;
     }
 
-    public long insert(User user) throws SQLException, ApplicationConfigException {
+    public long insert(User user) throws SQLException {
         try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement(ADD_USER, Statement.RETURN_GENERATED_KEYS);
             int col = 1;
@@ -80,7 +80,7 @@ public class UsersDAO extends BaseDAO {
         }
     }
 
-    public boolean update(User user) throws SQLException, ApplicationConfigException {
+    public boolean update(User user) throws SQLException {
         try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement(UPDATE_USER + BY_ID);
             int col = 1;
@@ -93,7 +93,7 @@ public class UsersDAO extends BaseDAO {
         }
     }
 
-    public boolean delete(User user) throws SQLException, ApplicationConfigException {
+    public boolean delete(User user) throws SQLException {
         try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement(DELETE_USER + BY_EMAIL);
             statement.setString(1, user.getEmail());

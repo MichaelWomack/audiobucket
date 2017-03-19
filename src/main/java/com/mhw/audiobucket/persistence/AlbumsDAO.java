@@ -18,7 +18,7 @@ public class AlbumsDAO extends BaseDAO {
     private static final String BY_ID = " where id = ?";
 
 
-    public Album getById(long id) throws ApplicationConfigException, SQLException {
+    public Album getById(long id) throws SQLException {
         try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement(GET_ALL + BY_ID);
             statement.setLong(1, id);
@@ -28,7 +28,7 @@ public class AlbumsDAO extends BaseDAO {
         }
     }
 
-    public long insert(Album album) throws SQLException, ApplicationConfigException {
+    public long insert(Album album) throws SQLException {
         try(Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement(INSERT, Statement.RETURN_GENERATED_KEYS);
             int col = 1;
@@ -47,7 +47,7 @@ public class AlbumsDAO extends BaseDAO {
         }
     }
 
-    public boolean update(Album album) throws SQLException, ApplicationConfigException {
+    public boolean update(Album album) throws SQLException {
         try (Connection conn = getConnection()) {
             PreparedStatement statement = conn.prepareStatement(UPDATE + BY_ID);
             int col = 1;
