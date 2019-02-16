@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
  */
 public class Util {
 
-    public static String readResouce(String resource) throws IOException {
+    public static String readResource(String resource) throws IOException {
         InputStream in = getResourceAsStream(resource);
         return CharStreams.toString(new InputStreamReader(in));
     }

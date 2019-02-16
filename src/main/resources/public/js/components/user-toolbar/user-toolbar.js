@@ -51,18 +51,15 @@ angular.module('app').component('userToolbar', {
                     this.apply = () => {
                         let formData = new FormData();
                         formData.append("profileImage", this.file);
+                        formData.append("fileType", this.file.type);
+                        console.log(this.file);
+                        // formData.append("contentType", this.fil)
                         Object.keys(this.artistInfo)
                             .forEach((key) => formData.append(key, this.artistInfo[key]));
 
                         Artists.upsert(formData).then((response) => {
                             alert(JSON.stringify(response));
                         });
-                        // Artists.upsert(this.artistInfo).then((response) => {
-                        //     let data = response.config.data;
-                        //     alert(JSON.stringify(response));
-                        //     alert(JSON.stringify(data));
-                        //     profileCtrl.updateData();
-                        // });
                     };
 
                     this.setFile = (fileInput) => {

@@ -64,6 +64,10 @@ public class Artist {
         this.pageUrl = pageUrl;
     }
 
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
+    }
+
     public String getProfileImageUrl() {
         return profileImageUrl;
     }

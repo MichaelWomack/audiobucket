@@ -1,5 +1,6 @@
 package com.mhw.audiobucket.services;
 
+import com.google.inject.Inject;
 import com.mhw.audiobucket.app.transformer.JsonTransformer;
 import com.mhw.audiobucket.config.exception.ApplicationConfigException;
 import com.mhw.audiobucket.model.Response;
@@ -20,9 +21,11 @@ public class TracksService {
 
     private static final String CONTENT_TYPE = "application/json";
     private static final Logger LOGGER = Logger.getLogger(TracksService.class.getName());
-    private static final TracksDAO tracks = new TracksDAO();
 
-    public static void run() {
+    @Inject
+    private TracksDAO tracks;
+
+    public void init() {
 
         get("/api/tracks/artist_id/:artist_id", CONTENT_TYPE, (req, res) -> {
             List<Track> tracksList;
@@ -31,7 +34,7 @@ public class TracksService {
                 long artistId = Long.parseLong(artistIdStr);
                 tracksList = tracks.getTracksByArtistId(artistId);
                 return new Response(true, tracksList);
-            } catch (ApplicationConfigException | SQLException e) {
+            } catch (SQLException e) {
                 String message = "Error occurred while getting tracks with artist_id : " + artistIdStr + " -- " + e.getMessage();
                 LOGGER.log(Level.SEVERE, message, e);
                 return new Response(false, message);
@@ -44,7 +47,7 @@ public class TracksService {
                 long trackId = Long.parseLong(trackIdStr);
                 Track track = tracks.getById(trackId);
                 return new Response(true, track);
-            } catch (ApplicationConfigException | SQLException e) {
+            } catch (SQLException e) {
                 String message = "Error occurred while getting track with id: " + trackIdStr + " -- " + e.getMessage();
                 LOGGER.log(Level.SEVERE, message, e);
                 return new Response(false, message);

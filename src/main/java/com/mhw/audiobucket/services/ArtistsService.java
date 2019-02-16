@@ -2,12 +2,13 @@ package com.mhw.audiobucket.services;
 
 import com.google.cloud.storage.Blob;
 import com.google.gson.JsonObject;
+import com.google.inject.Inject;
 import com.mhw.audiobucket.app.transformer.JsonTransformer;
-import com.mhw.audiobucket.config.StorageConfig;
 import com.mhw.audiobucket.config.exception.ApplicationConfigException;
 import com.mhw.audiobucket.model.Artist;
 import com.mhw.audiobucket.model.Response;
 import com.mhw.audiobucket.model.User;
+import com.mhw.audiobucket.model.conf.StorageProperties;
 import com.mhw.audiobucket.persistence.ArtistsDAO;
 import com.mhw.audiobucket.persistence.UsersDAO;
 import com.mhw.audiobucket.serialization.JsonSerializer;
@@ -35,13 +36,21 @@ public class ArtistsService {
 
     private static final String CONTENT_TYPE = "application/json";
     private static final Logger LOGGER = Logger.getLogger(ArtistsService.class.getName());
-    private static final ArtistsDAO artists = new ArtistsDAO();
-    private static final UsersDAO users = new UsersDAO();
-    private static final CloudStorageManager storageManager = new CloudStorageManager();
 
-    public static void run() throws ApplicationConfigException {
+    @Inject
+    private ArtistsDAO artists;
 
-        StorageConfig storageConfig = new StorageConfig();
+    @Inject
+    private UsersDAO users;
+
+    @Inject
+    private CloudStorageManager storageManager;
+
+    @Inject
+    private StorageProperties storageProperties;
+
+    public void init() throws ApplicationConfigException {
+
 
         //TODO
         get("/api/artists", CONTENT_TYPE, (req, res) -> {
@@ -57,22 +66,27 @@ public class ArtistsService {
                 List<Part> parts = (ArrayList) servletRequest.getParts();
 
                 JsonObject requestJson = new JsonObject();
-                for (Part part : parts) {
-                    if (!part.getName().equals("profileImage")) {
-                        requestJson.addProperty(part.getName(), Util.inputStreamToString(part.getInputStream()));
-                    }
-                    else {
-                        String userId = req.cookie("identity");
-                        try (InputStream profileImageStream = part.getInputStream()) {
-                            String profileImagePath = storageManager.getStorageNameForImage(userId, part.getName());
-                            Blob profileImage = storageManager.uploadBlobFromInputStream(storageConfig.getProperty("bucket_name"),
-                                    profileImagePath, profileImageStream, null);
+                List<String> imageInfo = new ArrayList<>(Arrays.asList("profileImage", "contentType"));
 
-                        }
+                for (Part part : parts) {
+                    if (!imageInfo.contains(part.getName())) {
+                        requestJson.addProperty(part.getName(), Util.inputStreamToString(part.getInputStream()));
                     }
                 }
 
+                Part profileImagePart = servletRequest.getPart("profileImage");
+                String contentType = Util.inputStreamToString(servletRequest.getPart("fileType").getInputStream());
+
+                String relativeImageUrl;
+                try (InputStream profileImageStream = profileImagePart.getInputStream()) {
+                    String userId = req.cookie("identity");
+                    relativeImageUrl = storageProperties.getStorageNameForImage(userId, profileImagePart.getName());
+                    Blob profileImageBlob = storageManager.uploadBlobFromInputStream(storageProperties.getBucketName(),
+                            relativeImageUrl, profileImageStream, contentType);
+                }
+
                 Artist artist = (Artist) JsonSerializer.toObject(requestJson.toString(), Artist.class);
+                artist.setProfileImageUrl(storageProperties.getFullStorageObjectUrl(relativeImageUrl));
                 if (artist.getId() == 0L) {
                     long artistId = artists.insert(artist);
                     long userId = Long.parseLong(req.cookie("identity"));
@@ -88,7 +102,7 @@ public class ArtistsService {
                         return new Response(false, "Failed to update artist info.");
                     }
                 }
-            } catch (ApplicationConfigException | SQLException | IOException e) {
+            } catch (SQLException | IOException e) {
                 String message = "Error updating artist info";
                 LOGGER.log(Level.SEVERE, message, e);
                 return new Response(false, message);
@@ -109,7 +123,7 @@ public class ArtistsService {
                 user.setArtistId(artistId);
                 users.update(user);
                 return new Response(true, "Successfully inserted artist. Id: " + artistId);
-            } catch (ApplicationConfigException | SQLException e) {
+            } catch (SQLException e) {
                 String message = "Error submitting artist info: " + e.getMessage();
                 LOGGER.log(Level.SEVERE, message, e);
                 return new Response(false, message);
@@ -124,7 +138,7 @@ public class ArtistsService {
                 Artist artist = artists.getById(artistId);
                 LOGGER.log(Level.INFO, artist.toString());
                 return new Response(true, artist);
-            } catch (ApplicationConfigException | SQLException e) {
+            } catch (SQLException e) {
                 String message = "Error occurred while getting artist with id: " + idStr + " -- " + e.getMessage();
                 LOGGER.log(Level.SEVERE, message, e);
                 return new Response(false, message);
